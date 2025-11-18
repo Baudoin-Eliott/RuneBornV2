@@ -47,7 +47,19 @@ void Game::HandleEvents()
 
 void Game::Update() {
 
-	//##TODO
+	for (auto& entity : m_manager.getEntities()) {
+		if (entity->hasComponent<TransformComponent>() && entity->hasComponent<MovementComponent>()) {
+
+			auto& transform = entity->getComponent<TransformComponent>();
+			auto& movement = entity->getComponent<MovementComponent>();
+
+			// Appliquer la vitesse de mouvement si l'entité peut bouger
+			if (movement.canMove) {
+				transform.position.x += transform.velocity.x * movement.speed;
+				transform.position.y += transform.velocity.y * movement.speed;
+			}
+		}
+	}
 }
 
 void Game::Render()

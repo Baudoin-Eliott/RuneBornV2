@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include "Components.h"
 
 
 class Game
@@ -10,6 +11,7 @@ private:
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
 	SDL_Event m_event;
+	Manager m_manager;
 
 public:
 	Game();
@@ -23,8 +25,6 @@ public:
 	bool isRunning() { return m_isRunning; };
 	void Render();
 	void Clean();
-
-
 
 };
 

@@ -101,12 +101,12 @@ private:
 public:
 	void update() {
 
-		for (auto& e : entities) e->update();
+		refresh();
 	}
 
 	void draw() {
 
-		for (auto& e : entities) e->draw();
+		
 	}
 
 	void refresh() {
@@ -117,6 +117,8 @@ public:
 			}),
 			std::end(entities));
 	}
+
+	const std::vector<std::unique_ptr<Entity>>& getEntities() const { return entities; };
 
 	Entity& addEntity() {
 		Entity* e = new Entity();
