@@ -1,29 +1,51 @@
-#pragma once
 #include "Game.h"
+#include <iostream>
 
-int main() {
+int main(int argc, char* argv[]) {
 
-	const int FPS = 60;
-	const int frameDelay = 1000 / FPS;
+    // Configuration du jeu
+    const int FPS = 60;
+    const float TARGET_DELTA = 1000.0f / FPS;  // En millisecondes
 
-	int frameStart;
-	int frameTime;
+    // Création du jeu
+    Game* game = new Game();
 
+    if (game->Init("RuneBorn V2", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+        800, 600, false) != 0) {
+        std::cerr << "[Main] Failed to initialize game!\n";
+        delete game;
+        return 1;
+    }
 
-	Game* game = new Game();
-	game->Init("RuneBorn V2", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
+    std::cout << "[Main] Game loop starting...\n";
 
-	while (game->isRunning()) {
-		frameStart = SDL_GetTicks();
-		game->HandleEvents();
-		game->Update();
-		game->Render();
+    // Variables pour le timing
+    Uint64 lastTime = SDL_GetTicks();
 
-		frameTime = SDL_GetTicks() - frameStart;
-		if (frameDelay > frameTime)
-			SDL_Delay(frameDelay - frameTime);
-	}
+    // Boucle principale du jeu
+    while (game->isRunning()) {
 
-	game->Clean();
-	return 0;
+        // Calcul du delta time
+        Uint64 currentTime = SDL_GetTicks();
+        float deltaTime = (currentTime - lastTime) / 1000.0f;  // Convertir en secondes
+        lastTime = currentTime;
+
+        // Mise à jour du jeu
+        game->HandleEvents();
+        game->Update(deltaTime);  // Passer le deltaTime au nouveau ECS
+        game->Render();
+
+        // Limitation du framerate
+        Uint64 frameTime = SDL_GetTicks() - currentTime;
+        if (frameTime < TARGET_DELTA) {
+            SDL_Delay(static_cast<Uint32>(TARGET_DELTA - frameTime));
+        }
+    }
+
+    // Nettoyage
+    game->Clean();
+    delete game;
+
+    std::cout << "[Main] Game exited cleanly\n";
+    return 0;
 }
