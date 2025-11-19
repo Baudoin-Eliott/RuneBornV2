@@ -25,6 +25,7 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Game.
   C:/Dev/SDL2/include/SDL2/SDL_haptic.h \
   C:/Dev/SDL2/include/SDL2/SDL_hidapi.h \
   C:/Dev/SDL2/include/SDL2/SDL_hints.h \
+  C:/Dev/SDL2/include/SDL2/SDL_image.h \
   C:/Dev/SDL2/include/SDL2/SDL_joystick.h \
   C:/Dev/SDL2/include/SDL2/SDL_keyboard.h \
   C:/Dev/SDL2/include/SDL2/SDL_keycode.h \
@@ -57,6 +58,8 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Game.
   C:/Dev/SDL2/include/SDL2/SDL_video.h \
   C:/Dev/SDL2/include/SDL2/begin_code.h \
   C:/Dev/SDL2/include/SDL2/close_code.h \
+  C:/Users/eliot/source/repos/RuneBorn/src/Components/DirectionalAnimationComponent.h \
+  C:/Users/eliot/source/repos/RuneBorn/src/Components/PlayerComponent.h \
   C:/msys64/mingw64/include/_mingw.h \
   C:/msys64/mingw64/include/_mingw_mac.h \
   C:/msys64/mingw64/include/_mingw_off_t.h \
@@ -399,10 +402,12 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Game.
   C:/Users/eliot/source/repos/RuneBorn/ECS/Components/TransformComponent.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/ECS.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/AnimationSystem.h \
+  C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/MovementSystem.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/RenderSystem.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Utils/Vector2D.h \
   C:/Users/eliot/source/repos/RuneBorn/Game.h \
-  C:/Users/eliot/source/repos/RuneBorn/src/Components/PlayerComponent.h
+  C:/Users/eliot/source/repos/RuneBorn/src/Systems/DirectionalAnimationSystem.h \
+  C:/Users/eliot/source/repos/RuneBorn/src/Systems/PlayerInputSystem.h
 
 CMakeFiles/RuneBorn.dir/Main.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Main.cpp \
   C:/Dev/SDL2/include/SDL2/SDL.h \
@@ -424,6 +429,7 @@ CMakeFiles/RuneBorn.dir/Main.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Main.
   C:/Dev/SDL2/include/SDL2/SDL_haptic.h \
   C:/Dev/SDL2/include/SDL2/SDL_hidapi.h \
   C:/Dev/SDL2/include/SDL2/SDL_hints.h \
+  C:/Dev/SDL2/include/SDL2/SDL_image.h \
   C:/Dev/SDL2/include/SDL2/SDL_joystick.h \
   C:/Dev/SDL2/include/SDL2/SDL_keyboard.h \
   C:/Dev/SDL2/include/SDL2/SDL_keycode.h \
@@ -801,7 +807,9 @@ CMakeFiles/RuneBorn.dir/Main.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Main.
   C:/Users/eliot/source/repos/RuneBorn/Game.h
 
 
-C:/Users/eliot/source/repos/RuneBorn/src/Components/PlayerComponent.h:
+C:/Users/eliot/source/repos/RuneBorn/src/Systems/PlayerInputSystem.h:
+
+C:/Users/eliot/source/repos/RuneBorn/src/Systems/DirectionalAnimationSystem.h:
 
 C:/Users/eliot/source/repos/RuneBorn/Game.h:
 
@@ -993,6 +1001,8 @@ C:/msys64/mingw64/include/sys/timeb.h:
 
 C:/msys64/mingw64/include/stdlib.h:
 
+C:/msys64/mingw64/include/stdio.h:
+
 C:/msys64/mingw64/include/c++/15.2.0/bits/std_abs.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx10_2mediaintrin.h:
@@ -1000,6 +1010,8 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx10_2mediaintrin.h
 C:/msys64/mingw64/include/c++/15.2.0/backward/binders.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/requires_hosted.h:
+
+C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/MovementSystem.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/functexcept.h:
 
@@ -1073,8 +1085,6 @@ C:/msys64/mingw64/include/_mingw_off_t.h:
 
 C:/Dev/SDL2/include/SDL2/begin_code.h:
 
-C:/msys64/mingw64/include/c++/15.2.0/bits/stl_function.h:
-
 C:/msys64/mingw64/include/c++/15.2.0/bits/ptr_traits.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avxvnniint8intrin.h:
@@ -1107,8 +1117,6 @@ C:/msys64/mingw64/include/c++/15.2.0/bits/atomic_base.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/algorithm:
 
-C:/msys64/mingw64/include/stdio.h:
-
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512bwintrin.h:
 
 C:/msys64/mingw64/include/swprintf.inl:
@@ -1119,11 +1127,11 @@ C:/msys64/mingw64/include/c++/15.2.0/bits/locale_facets.tcc:
 
 C:/msys64/mingw64/include/c++/15.2.0/type_traits:
 
-C:/msys64/mingw64/include/c++/15.2.0/bits/align.h:
+C:/msys64/mingw64/include/_mingw_stat64.h:
 
-C:/msys64/mingw64/include/c++/15.2.0/bits/stl_bvector.h:
+C:/msys64/mingw64/include/_mingw_secapi.h:
 
-C:/Dev/SDL2/include/SDL2/SDL_error.h:
+C:/Dev/SDL2/include/SDL2/SDL_gamecontroller.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_shape.h:
 
@@ -1141,11 +1149,9 @@ C:/Dev/SDL2/include/SDL2/SDL_filesystem.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_joystick.h:
 
-C:/msys64/mingw64/include/c++/15.2.0/bits/atomic_lockfree_defines.h:
+C:/msys64/mingw64/include/stddef.h:
 
-C:/msys64/mingw64/include/c++/15.2.0/bits/stl_heap.h:
-
-C:/msys64/mingw64/include/c++/15.2.0/concepts:
+C:/Users/eliot/source/repos/RuneBorn/DataManager.cpp:
 
 C:/Dev/SDL2/include/SDL2/SDL_hints.h:
 
@@ -1154,10 +1160,6 @@ C:/msys64/mingw64/include/c++/15.2.0/tr1/poly_laguerre.tcc:
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/cmpccxaddintrin.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_config.h:
-
-C:/msys64/mingw64/include/_mingw_secapi.h:
-
-C:/Dev/SDL2/include/SDL2/SDL_gamecontroller.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_gesture.h:
 
@@ -1172,6 +1174,12 @@ C:/Dev/SDL2/include/SDL2/SDL_haptic.h:
 C:/Dev/SDL2/include/SDL2/SDL.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_power.h:
+
+C:/msys64/mingw64/include/c++/15.2.0/bits/align.h:
+
+C:/msys64/mingw64/include/c++/15.2.0/bits/stl_bvector.h:
+
+C:/Dev/SDL2/include/SDL2/SDL_error.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/locale_classes.tcc:
 
@@ -1189,9 +1197,13 @@ C:/msys64/mingw64/include/c++/15.2.0/bits/erase_if.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_main.h:
 
+C:/Users/eliot/source/repos/RuneBorn/src/Components/PlayerComponent.h:
+
 C:/msys64/mingw64/include/corecrt_startup.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/pstl/execution_defs.h:
+
+C:/msys64/mingw64/include/c++/15.2.0/bits/stl_function.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/refwrap.h:
 
@@ -1241,8 +1253,6 @@ C:/Dev/SDL2/include/SDL2/SDL_pixels.h:
 
 C:/msys64/mingw64/include/sdks/_mingw_ddk.h:
 
-C:/msys64/mingw64/include/_mingw_stat64.h:
-
 C:/Dev/SDL2/include/SDL2/SDL_keycode.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/postypes.h:
@@ -1252,10 +1262,6 @@ C:/msys64/mingw64/include/c++/15.2.0/bits/basic_string.h:
 C:/msys64/mingw64/include/c++/15.2.0/bits/memory_resource.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/stl_pair.h:
-
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdint.h:
-
-C:/msys64/mingw64/include/c++/15.2.0/bits/stl_construct.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_platform.h:
 
@@ -1315,9 +1321,25 @@ C:/msys64/mingw64/include/c++/15.2.0/bits/stl_uninitialized.h:
 
 C:/Dev/SDL2/include/SDL2/close_code.h:
 
+C:/msys64/mingw64/include/stdint.h:
+
+C:/msys64/mingw64/include/c++/15.2.0/limits:
+
 C:/msys64/mingw64/include/c++/15.2.0/bits/range_access.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_video.h:
+
+C:/Users/eliot/source/repos/RuneBorn/src/Components/DirectionalAnimationComponent.h:
+
+C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdint.h:
+
+C:/msys64/mingw64/include/c++/15.2.0/bits/stl_construct.h:
+
+C:/msys64/mingw64/include/c++/15.2.0/bits/atomic_lockfree_defines.h:
+
+C:/msys64/mingw64/include/c++/15.2.0/bits/stl_heap.h:
+
+C:/msys64/mingw64/include/c++/15.2.0/concepts:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/stl_iterator.h:
 
@@ -1387,10 +1409,6 @@ C:/msys64/mingw64/include/c++/15.2.0/cctype:
 
 C:/msys64/mingw64/include/c++/15.2.0/x86_64-w64-mingw32/bits/atomic_word.h:
 
-C:/msys64/mingw64/include/c++/15.2.0/limits:
-
-C:/msys64/mingw64/include/stdint.h:
-
 C:/Dev/SDL2/include/SDL2/SDL_render.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/cerrno:
@@ -1398,6 +1416,8 @@ C:/msys64/mingw64/include/c++/15.2.0/cerrno:
 C:/msys64/mingw64/include/c++/15.2.0/cmath:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/prfchiintrin.h:
+
+C:/Dev/SDL2/include/SDL2/SDL_image.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/cstdio:
 
@@ -1486,10 +1506,6 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/amxavx512intrin.h:
 C:/Dev/SDL2/include/SDL2/SDL_touch.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/tr1/ell_integral.tcc:
-
-C:/Users/eliot/source/repos/RuneBorn/DataManager.cpp:
-
-C:/msys64/mingw64/include/stddef.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_locale.h:
 

@@ -203,7 +203,8 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: \
  C:/Dev/SDL2/include/SDL2/SDL_timer.h \
  C:/Dev/SDL2/include/SDL2/SDL_version.h \
  C:/Dev/SDL2/include/SDL2/SDL_locale.h \
- C:/Dev/SDL2/include/SDL2/SDL_misc.h \
+ C:/Dev/SDL2/include/SDL2/SDL_misc.h C:/Dev/SDL2/include/SDL2/SDL_image.h \
+ C:/Dev/SDL2/include/SDL2/SDL.h \
  C:\Users\eliot\source\repos\RuneBorn\ECS/ECS.h \
  C:/msys64/mingw64/include/c++/15.2.0/iostream \
  C:/msys64/mingw64/include/c++/15.2.0/bits/requires_hosted.h \
@@ -387,4 +388,8 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_multimap.h \
  C:\Users\eliot\source\repos\RuneBorn\ECS/Systems/RenderSystem.h \
  C:\Users\eliot\source\repos\RuneBorn\ECS/Systems/AnimationSystem.h \
- C:\Users\eliot\source\repos\RuneBorn\src/Components/PlayerComponent.h
+ C:\Users\eliot\source\repos\RuneBorn\ECS/Systems/MovementSystem.h \
+ C:\Users\eliot\source\repos\RuneBorn\src/Systems/PlayerInputSystem.h \
+ C:/Users/eliot/source/repos/RuneBorn/src/Components/PlayerComponent.h \
+ C:/Users/eliot/source/repos/RuneBorn/src/Components/DirectionalAnimationComponent.h \
+ C:\Users\eliot\source\repos\RuneBorn\src/Systems/DirectionalAnimationSystem.h

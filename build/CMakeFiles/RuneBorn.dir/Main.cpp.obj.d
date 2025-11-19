@@ -203,7 +203,8 @@ CMakeFiles/RuneBorn.dir/Main.cpp.obj: \
  C:/Dev/SDL2/include/SDL2/SDL_timer.h \
  C:/Dev/SDL2/include/SDL2/SDL_version.h \
  C:/Dev/SDL2/include/SDL2/SDL_locale.h \
- C:/Dev/SDL2/include/SDL2/SDL_misc.h \
+ C:/Dev/SDL2/include/SDL2/SDL_misc.h C:/Dev/SDL2/include/SDL2/SDL_image.h \
+ C:/Dev/SDL2/include/SDL2/SDL.h \
  C:\Users\eliot\source\repos\RuneBorn\ECS/ECS.h \
  C:/msys64/mingw64/include/c++/15.2.0/iostream \
  C:/msys64/mingw64/include/c++/15.2.0/bits/requires_hosted.h \

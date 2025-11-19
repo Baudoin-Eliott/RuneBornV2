@@ -28,6 +28,7 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj
  C:/Dev/SDL2/include/SDL2/SDL_haptic.h
  C:/Dev/SDL2/include/SDL2/SDL_hidapi.h
  C:/Dev/SDL2/include/SDL2/SDL_hints.h
+ C:/Dev/SDL2/include/SDL2/SDL_image.h
  C:/Dev/SDL2/include/SDL2/SDL_joystick.h
  C:/Dev/SDL2/include/SDL2/SDL_keyboard.h
  C:/Dev/SDL2/include/SDL2/SDL_keycode.h
@@ -60,6 +61,8 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj
  C:/Dev/SDL2/include/SDL2/SDL_video.h
  C:/Dev/SDL2/include/SDL2/begin_code.h
  C:/Dev/SDL2/include/SDL2/close_code.h
+ C:/Users/eliot/source/repos/RuneBorn/src/Components/DirectionalAnimationComponent.h
+ C:/Users/eliot/source/repos/RuneBorn/src/Components/PlayerComponent.h
  C:/msys64/mingw64/include/_mingw.h
  C:/msys64/mingw64/include/_mingw_mac.h
  C:/msys64/mingw64/include/_mingw_off_t.h
@@ -402,10 +405,12 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj
  C:/Users/eliot/source/repos/RuneBorn/ECS/Components/TransformComponent.h
  C:/Users/eliot/source/repos/RuneBorn/ECS/ECS.h
  C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/AnimationSystem.h
+ C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/MovementSystem.h
  C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/RenderSystem.h
  C:/Users/eliot/source/repos/RuneBorn/ECS/Utils/Vector2D.h
  C:/Users/eliot/source/repos/RuneBorn/Game.h
- C:/Users/eliot/source/repos/RuneBorn/src/Components/PlayerComponent.h
+ C:/Users/eliot/source/repos/RuneBorn/src/Systems/DirectionalAnimationSystem.h
+ C:/Users/eliot/source/repos/RuneBorn/src/Systems/PlayerInputSystem.h
 
 CMakeFiles/RuneBorn.dir/Main.cpp.obj
  C:/Users/eliot/source/repos/RuneBorn/Main.cpp
@@ -428,6 +433,7 @@ CMakeFiles/RuneBorn.dir/Main.cpp.obj
  C:/Dev/SDL2/include/SDL2/SDL_haptic.h
  C:/Dev/SDL2/include/SDL2/SDL_hidapi.h
  C:/Dev/SDL2/include/SDL2/SDL_hints.h
+ C:/Dev/SDL2/include/SDL2/SDL_image.h
  C:/Dev/SDL2/include/SDL2/SDL_joystick.h
  C:/Dev/SDL2/include/SDL2/SDL_keyboard.h
  C:/Dev/SDL2/include/SDL2/SDL_keycode.h
