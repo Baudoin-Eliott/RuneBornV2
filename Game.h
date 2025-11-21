@@ -5,9 +5,11 @@
 // Nouveau ECS
 #include "ECS/ECS.h"
 #include "ECS/Utils/Vector2D.h"
+#include "ECS/Utils/TiledParser.h"
 #include "ECS/Components/TransformComponent.h"
 #include "ECS/Components/SpriteComponent.h"
 #include "ECS/Components/AnimationComponent.h"
+#include "ECS/Components/CameraComponent.h"
 
 // Layers du jeu
 enum GameLayer

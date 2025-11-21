@@ -9,9 +9,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/eliot/source/repos/RuneBorn/DataManager.cpp" "CMakeFiles/RuneBorn.dir/DataManager.cpp.obj" "gcc" "CMakeFiles/RuneBorn.dir/DataManager.cpp.obj.d"
-  "C:/Users/eliot/source/repos/RuneBorn/ECS/Utils/Vector2D.cpp" "CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj" "gcc" "CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj.d"
   "C:/Users/eliot/source/repos/RuneBorn/Game.cpp" "CMakeFiles/RuneBorn.dir/Game.cpp.obj" "gcc" "CMakeFiles/RuneBorn.dir/Game.cpp.obj.d"
   "C:/Users/eliot/source/repos/RuneBorn/Main.cpp" "CMakeFiles/RuneBorn.dir/Main.cpp.obj" "gcc" "CMakeFiles/RuneBorn.dir/Main.cpp.obj.d"
+  "C:/Users/eliot/source/repos/RuneBorn/tinyxml2.cpp" "CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj" "gcc" "CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

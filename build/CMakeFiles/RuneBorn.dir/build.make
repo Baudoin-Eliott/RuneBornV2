@@ -116,27 +116,27 @@ CMakeFiles/RuneBorn.dir/DataManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/RuneBorn.dir/DataManager.cpp.s"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\eliot\source\repos\RuneBorn\DataManager.cpp -o CMakeFiles\RuneBorn.dir\DataManager.cpp.s
 
-CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj: CMakeFiles/RuneBorn.dir/flags.make
-CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj: CMakeFiles/RuneBorn.dir/includes_CXX.rsp
-CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/ECS/Utils/Vector2D.cpp
-CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj: CMakeFiles/RuneBorn.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\eliot\source\repos\RuneBorn\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj"
-	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj -MF CMakeFiles\RuneBorn.dir\ECS\Utils\Vector2D.cpp.obj.d -o CMakeFiles\RuneBorn.dir\ECS\Utils\Vector2D.cpp.obj -c C:\Users\eliot\source\repos\RuneBorn\ECS\Utils\Vector2D.cpp
+CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj: CMakeFiles/RuneBorn.dir/flags.make
+CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj: CMakeFiles/RuneBorn.dir/includes_CXX.rsp
+CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/tinyxml2.cpp
+CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj: CMakeFiles/RuneBorn.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\eliot\source\repos\RuneBorn\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj -MF CMakeFiles\RuneBorn.dir\tinyxml2.cpp.obj.d -o CMakeFiles\RuneBorn.dir\tinyxml2.cpp.obj -c C:\Users\eliot\source\repos\RuneBorn\tinyxml2.cpp
 
-CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.i"
-	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\eliot\source\repos\RuneBorn\ECS\Utils\Vector2D.cpp > CMakeFiles\RuneBorn.dir\ECS\Utils\Vector2D.cpp.i
+CMakeFiles/RuneBorn.dir/tinyxml2.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/RuneBorn.dir/tinyxml2.cpp.i"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\eliot\source\repos\RuneBorn\tinyxml2.cpp > CMakeFiles\RuneBorn.dir\tinyxml2.cpp.i
 
-CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.s"
-	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\eliot\source\repos\RuneBorn\ECS\Utils\Vector2D.cpp -o CMakeFiles\RuneBorn.dir\ECS\Utils\Vector2D.cpp.s
+CMakeFiles/RuneBorn.dir/tinyxml2.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/RuneBorn.dir/tinyxml2.cpp.s"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\eliot\source\repos\RuneBorn\tinyxml2.cpp -o CMakeFiles\RuneBorn.dir\tinyxml2.cpp.s
 
 # Object files for target RuneBorn
 RuneBorn_OBJECTS = \
 "CMakeFiles/RuneBorn.dir/Main.cpp.obj" \
 "CMakeFiles/RuneBorn.dir/Game.cpp.obj" \
 "CMakeFiles/RuneBorn.dir/DataManager.cpp.obj" \
-"CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj"
+"CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj"
 
 # External object files for target RuneBorn
 RuneBorn_EXTERNAL_OBJECTS =
@@ -144,7 +144,7 @@ RuneBorn_EXTERNAL_OBJECTS =
 RuneBorn.exe: CMakeFiles/RuneBorn.dir/Main.cpp.obj
 RuneBorn.exe: CMakeFiles/RuneBorn.dir/Game.cpp.obj
 RuneBorn.exe: CMakeFiles/RuneBorn.dir/DataManager.cpp.obj
-RuneBorn.exe: CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj
+RuneBorn.exe: CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj
 RuneBorn.exe: CMakeFiles/RuneBorn.dir/build.make
 RuneBorn.exe: C:/Dev/SDL2/lib/libSDL2main.a
 RuneBorn.exe: C:/Dev/SDL2/lib/libSDL2.dll.a

@@ -5,6 +5,10 @@
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
 #include "ECS/Systems/MovementSystem.h"
+#include "ECS/Systems/CameraSystem.h"
+#include "ECS/Systems/TileMapRenderSystem.h"
+
+// Systèmes perso
 #include "src/Systems/PlayerInputSystem.h"
 #include "src/Systems/DirectionalAnimationSystem.h"
 
@@ -70,8 +74,11 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
     std::cout << "[Game] SpriteComponent ID: " << ECS::getComponentTypeID<SpriteComponent>() << "\n";
     std::cout << "[Game] AnimationComponent ID: " << ECS::getComponentTypeID<AnimationComponent>() << "\n";
 
+    
     // Initialiser les systèmes ECS
     setupSystems();
+
+
 
     // Créer une entité de test
     createTestEntity();
@@ -95,6 +102,14 @@ void Game::setupSystems()
     auto *dirAnimSys = m_manager.addSystem<DirectionalAnimationSystem>();
     dirAnimSys->setPriority(30);
 
+    // camera
+    auto *cameraSys = m_manager.addSystem<CameraSystem>();
+    cameraSys->setPriority(40);
+
+    // TilemapRender
+    auto *tilemapRenderSys = m_manager.addSystem<TileMapRenderSystem>(m_renderer);
+    tilemapRenderSys->setPriority(99);
+
     // Système de rendu (toujours en dernier)
     auto *renderSys = m_manager.addSystem<RenderSystem>(m_renderer);
     renderSys->setPriority(100);
@@ -108,10 +123,11 @@ void Game::createTestEntity()
     player.addLayer(LAYER_PLAYER);
 
     // Composants de base
-    player.addComponent<TransformComponent>(400, 300, 4.0f);
+    player.addComponent<TransformComponent>(400, 300, 1.0f);
     player.addComponent<SpriteComponent>(32, 32);
-    player.addComponent<PlayerComponent>(250.0f);
+    player.addComponent<PlayerComponent>(100.0f);
     player.addComponent<DirectionalAnimationComponent>("Walk", Direction::Down, 150, 16);
+    
 
     SDL_Texture *texture = loadTexture("assets/Actor/Characters/Boy/SpriteSheet.png");
     auto &sprite = player.getComponent<SpriteComponent>();
@@ -120,6 +136,26 @@ void Game::createTestEntity()
 
     auto &transform = player.getComponent<TransformComponent>();
     transform.velocity = Vector2D(0, 0);
+
+    ECS::Entity &map = m_manager.createEntity("Map");
+    map.addComponent<TileMapComponent>();
+    auto &tilemapCompo = map.getComponent<TileMapComponent>();
+    TiledParser::loadFromFile("assets/Backgrounds/Maps/map1.tmx", tilemapCompo, m_renderer);
+
+    ECS::Entity &camera = m_manager.createEntity("Camera");
+    camera.addComponent<CameraComponent>(800, 600);
+    auto &cameracomp = camera.getComponent<CameraComponent>();
+    cameracomp.zoom = 2.f;
+    cameracomp.setBounds(0, tilemapCompo.getMapWidthInPixels(), 0, tilemapCompo.getMapHeightInPixels());
+
+    auto renderSys = m_manager.getSystem<RenderSystem>();
+    renderSys->setCamera(&cameracomp);
+
+    auto tilemapSys = m_manager.getSystem<TileMapRenderSystem>();
+    tilemapSys->setCamera(&cameracomp);
+
+    auto cameraSys = m_manager.getSystem<CameraSystem>();
+    cameraSys->setTarget(&player);
 }
 
 SDL_Texture *Game::createColorTexture(int width, int height, Uint8 r, Uint8 g, Uint8 b)
@@ -207,7 +243,6 @@ void Game::Update(float deltaTime)
     // Mise à jour de tous les systèmes
     m_manager.update(deltaTime);
 
-    
     // Nettoyage des entités mortes
     m_manager.refresh();
 }
@@ -217,6 +252,12 @@ void Game::Render()
     // Clear de l'écran
     SDL_SetRenderDrawColor(m_renderer, 30, 30, 30, 255);
     SDL_RenderClear(m_renderer);
+
+    auto *tileMapSys = m_manager.getSystem<TileMapRenderSystem>();
+    if (tileMapSys){
+        tileMapSys->update(0);
+    }
+
 
     auto *renderSys = m_manager.getSystem<RenderSystem>();
     if (renderSys)

@@ -268,6 +268,9 @@ RuneBorn_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 RuneBorn_SOURCE_DIR:STATIC=C:/Users/eliot/source/repos/RuneBorn
 
+//The directory containing a CMake configuration file for SDL2.
+SDL2_DIR:PATH=SDL2_DIR-NOTFOUND
+
 //SDL2 root directory
 SDL2_ROOT_DIR:PATH=C:/Dev/SDL2
 

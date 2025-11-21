@@ -380,16 +380,28 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.2.0/tr1/poly_hermite.tcc \
  C:/msys64/mingw64/include/c++/15.2.0/tr1/poly_laguerre.tcc \
  C:/msys64/mingw64/include/c++/15.2.0/tr1/riemann_zeta.tcc \
+ C:\Users\eliot\source\repos\RuneBorn\ECS/Utils/TiledParser.h \
+ C:/Users/eliot/source/repos/RuneBorn/ECS/Components/TileMapComponent.h \
+ C:/Users/eliot/source/repos/RuneBorn/tinyxml2.h \
+ C:/msys64/mingw64/include/c++/15.2.0/climits \
+ C:/msys64/mingw64/include/c++/15.2.0/cstring \
+ C:/msys64/mingw64/include/string.h \
+ C:/msys64/mingw64/include/sec_api/string_s.h \
+ C:/msys64/mingw64/include/c++/15.2.0/sstream \
+ C:/msys64/mingw64/include/c++/15.2.0/bits/sstream.tcc \
  C:\Users\eliot\source\repos\RuneBorn\ECS/Components/TransformComponent.h \
  C:\Users\eliot\source\repos\RuneBorn\ECS/Components/SpriteComponent.h \
  C:\Users\eliot\source\repos\RuneBorn\ECS/Components/AnimationComponent.h \
  C:/msys64/mingw64/include/c++/15.2.0/map \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_map.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_multimap.h \
+ C:\Users\eliot\source\repos\RuneBorn\ECS/Components/CameraComponent.h \
  C:\Users\eliot\source\repos\RuneBorn\ECS/Systems/RenderSystem.h \
  C:\Users\eliot\source\repos\RuneBorn\ECS/Systems/AnimationSystem.h \
  C:\Users\eliot\source\repos\RuneBorn\ECS/Systems/MovementSystem.h \
- C:\Users\eliot\source\repos\RuneBorn\src/Systems/PlayerInputSystem.h \
+ C:\Users\eliot\source\repos\RuneBorn\ECS/Systems/CameraSystem.h \
  C:/Users/eliot/source/repos/RuneBorn/src/Components/PlayerComponent.h \
+ C:\Users\eliot\source\repos\RuneBorn\ECS/Systems/TileMapRenderSystem.h \
+ C:\Users\eliot\source\repos\RuneBorn\src/Systems/PlayerInputSystem.h \
  C:/Users/eliot/source/repos/RuneBorn/src/Components/DirectionalAnimationComponent.h \
  C:\Users\eliot\source\repos\RuneBorn\src/Systems/DirectionalAnimationSystem.h

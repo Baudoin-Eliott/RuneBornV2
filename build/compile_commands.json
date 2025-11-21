@@ -19,8 +19,8 @@
 },
 {
   "directory": "C:/Users/eliot/source/repos/RuneBorn/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/RuneBorn.dir/includes_CXX.rsp -g -std=c++17 -o CMakeFiles\\RuneBorn.dir\\ECS\\Utils\\Vector2D.cpp.obj -c C:\\Users\\eliot\\source\\repos\\RuneBorn\\ECS\\Utils\\Vector2D.cpp",
-  "file": "C:/Users/eliot/source/repos/RuneBorn/ECS/Utils/Vector2D.cpp",
-  "output": "CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj"
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/RuneBorn.dir/includes_CXX.rsp -g -std=c++17 -o CMakeFiles\\RuneBorn.dir\\tinyxml2.cpp.obj -c C:\\Users\\eliot\\source\\repos\\RuneBorn\\tinyxml2.cpp",
+  "file": "C:/Users/eliot/source/repos/RuneBorn/tinyxml2.cpp",
+  "output": "CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj"
 }
 ]

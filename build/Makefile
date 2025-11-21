@@ -152,30 +152,6 @@ DataManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\RuneBorn.dir\build.make CMakeFiles/RuneBorn.dir/DataManager.cpp.s
 .PHONY : DataManager.cpp.s
 
-ECS/Utils/Vector2D.obj: ECS/Utils/Vector2D.cpp.obj
-.PHONY : ECS/Utils/Vector2D.obj
-
-# target to build an object file
-ECS/Utils/Vector2D.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\RuneBorn.dir\build.make CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj
-.PHONY : ECS/Utils/Vector2D.cpp.obj
-
-ECS/Utils/Vector2D.i: ECS/Utils/Vector2D.cpp.i
-.PHONY : ECS/Utils/Vector2D.i
-
-# target to preprocess a source file
-ECS/Utils/Vector2D.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\RuneBorn.dir\build.make CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.i
-.PHONY : ECS/Utils/Vector2D.cpp.i
-
-ECS/Utils/Vector2D.s: ECS/Utils/Vector2D.cpp.s
-.PHONY : ECS/Utils/Vector2D.s
-
-# target to generate assembly for a file
-ECS/Utils/Vector2D.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\RuneBorn.dir\build.make CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.s
-.PHONY : ECS/Utils/Vector2D.cpp.s
-
 Game.obj: Game.cpp.obj
 .PHONY : Game.obj
 
@@ -224,6 +200,30 @@ Main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\RuneBorn.dir\build.make CMakeFiles/RuneBorn.dir/Main.cpp.s
 .PHONY : Main.cpp.s
 
+tinyxml2.obj: tinyxml2.cpp.obj
+.PHONY : tinyxml2.obj
+
+# target to build an object file
+tinyxml2.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\RuneBorn.dir\build.make CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj
+.PHONY : tinyxml2.cpp.obj
+
+tinyxml2.i: tinyxml2.cpp.i
+.PHONY : tinyxml2.i
+
+# target to preprocess a source file
+tinyxml2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\RuneBorn.dir\build.make CMakeFiles/RuneBorn.dir/tinyxml2.cpp.i
+.PHONY : tinyxml2.cpp.i
+
+tinyxml2.s: tinyxml2.cpp.s
+.PHONY : tinyxml2.s
+
+# target to generate assembly for a file
+tinyxml2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\RuneBorn.dir\build.make CMakeFiles/RuneBorn.dir/tinyxml2.cpp.s
+.PHONY : tinyxml2.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -236,15 +236,15 @@ help:
 	@echo ... DataManager.obj
 	@echo ... DataManager.i
 	@echo ... DataManager.s
-	@echo ... ECS/Utils/Vector2D.obj
-	@echo ... ECS/Utils/Vector2D.i
-	@echo ... ECS/Utils/Vector2D.s
 	@echo ... Game.obj
 	@echo ... Game.i
 	@echo ... Game.s
 	@echo ... Main.obj
 	@echo ... Main.i
 	@echo ... Main.s
+	@echo ... tinyxml2.obj
+	@echo ... tinyxml2.i
+	@echo ... tinyxml2.s
 .PHONY : help
 
 

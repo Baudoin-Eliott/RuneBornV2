@@ -29,7 +29,7 @@ set(SOURCES
     Main.cpp
     Game.cpp
     DataManager.cpp
-    ECS/Utils/Vector2D.cpp
+    tinyxml2.cpp
 )
 
 set(HEADERS
@@ -48,6 +48,7 @@ set(HEADERS
 # Création de l'exécutable
 # ========================================
 add_executable(RuneBorn ${SOURCES} ${HEADERS})
+
 
 target_include_directories(RuneBorn PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}

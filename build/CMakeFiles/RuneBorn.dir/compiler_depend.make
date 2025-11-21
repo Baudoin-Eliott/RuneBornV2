@@ -3,8 +3,6 @@
 
 CMakeFiles/RuneBorn.dir/DataManager.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/DataManager.cpp
 
-CMakeFiles/RuneBorn.dir/ECS/Utils/Vector2D.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/ECS/Utils/Vector2D.cpp
-
 CMakeFiles/RuneBorn.dir/Game.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Game.cpp \
   C:/Dev/SDL2/include/SDL2/SDL.h \
   C:/Dev/SDL2/include/SDL2/SDL_assert.h \
@@ -58,8 +56,10 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Game.
   C:/Dev/SDL2/include/SDL2/SDL_video.h \
   C:/Dev/SDL2/include/SDL2/begin_code.h \
   C:/Dev/SDL2/include/SDL2/close_code.h \
+  C:/Users/eliot/source/repos/RuneBorn/ECS/Components/TileMapComponent.h \
   C:/Users/eliot/source/repos/RuneBorn/src/Components/DirectionalAnimationComponent.h \
   C:/Users/eliot/source/repos/RuneBorn/src/Components/PlayerComponent.h \
+  C:/Users/eliot/source/repos/RuneBorn/tinyxml2.h \
   C:/msys64/mingw64/include/_mingw.h \
   C:/msys64/mingw64/include/_mingw_mac.h \
   C:/msys64/mingw64/include/_mingw_off_t.h \
@@ -126,6 +126,7 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Game.
   C:/msys64/mingw64/include/c++/15.2.0/bits/shared_ptr_atomic.h \
   C:/msys64/mingw64/include/c++/15.2.0/bits/shared_ptr_base.h \
   C:/msys64/mingw64/include/c++/15.2.0/bits/specfun.h \
+  C:/msys64/mingw64/include/c++/15.2.0/bits/sstream.tcc \
   C:/msys64/mingw64/include/c++/15.2.0/bits/std_abs.h \
   C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algo.h \
   C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algobase.h \
@@ -161,6 +162,7 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Game.
   C:/msys64/mingw64/include/c++/15.2.0/bitset \
   C:/msys64/mingw64/include/c++/15.2.0/cctype \
   C:/msys64/mingw64/include/c++/15.2.0/cerrno \
+  C:/msys64/mingw64/include/c++/15.2.0/climits \
   C:/msys64/mingw64/include/c++/15.2.0/clocale \
   C:/msys64/mingw64/include/c++/15.2.0/cmath \
   C:/msys64/mingw64/include/c++/15.2.0/compare \
@@ -168,6 +170,7 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Game.
   C:/msys64/mingw64/include/c++/15.2.0/cstddef \
   C:/msys64/mingw64/include/c++/15.2.0/cstdio \
   C:/msys64/mingw64/include/c++/15.2.0/cstdlib \
+  C:/msys64/mingw64/include/c++/15.2.0/cstring \
   C:/msys64/mingw64/include/c++/15.2.0/cwchar \
   C:/msys64/mingw64/include/c++/15.2.0/cwctype \
   C:/msys64/mingw64/include/c++/15.2.0/debug/assertions.h \
@@ -195,6 +198,7 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Game.
   C:/msys64/mingw64/include/c++/15.2.0/pstl/glue_memory_defs.h \
   C:/msys64/mingw64/include/c++/15.2.0/pstl/pstl_config.h \
   C:/msys64/mingw64/include/c++/15.2.0/set \
+  C:/msys64/mingw64/include/c++/15.2.0/sstream \
   C:/msys64/mingw64/include/c++/15.2.0/stdexcept \
   C:/msys64/mingw64/include/c++/15.2.0/stdlib.h \
   C:/msys64/mingw64/include/c++/15.2.0/streambuf \
@@ -255,6 +259,7 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Game.
   C:/msys64/mingw64/include/sdks/_mingw_ddk.h \
   C:/msys64/mingw64/include/sec_api/stdio_s.h \
   C:/msys64/mingw64/include/sec_api/stdlib_s.h \
+  C:/msys64/mingw64/include/sec_api/string_s.h \
   C:/msys64/mingw64/include/sec_api/sys/timeb_s.h \
   C:/msys64/mingw64/include/sec_api/wchar_s.h \
   C:/msys64/mingw64/include/setjmp.h \
@@ -264,6 +269,7 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Game.
   C:/msys64/mingw64/include/stdint.h \
   C:/msys64/mingw64/include/stdio.h \
   C:/msys64/mingw64/include/stdlib.h \
+  C:/msys64/mingw64/include/string.h \
   C:/msys64/mingw64/include/swprintf.inl \
   C:/msys64/mingw64/include/sys/timeb.h \
   C:/msys64/mingw64/include/sys/types.h \
@@ -398,12 +404,16 @@ CMakeFiles/RuneBorn.dir/Game.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Game.
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/xsavesintrin.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/xtestintrin.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Components/AnimationComponent.h \
+  C:/Users/eliot/source/repos/RuneBorn/ECS/Components/CameraComponent.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Components/SpriteComponent.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Components/TransformComponent.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/ECS.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/AnimationSystem.h \
+  C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/CameraSystem.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/MovementSystem.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/RenderSystem.h \
+  C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/TileMapRenderSystem.h \
+  C:/Users/eliot/source/repos/RuneBorn/ECS/Utils/TiledParser.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Utils/Vector2D.h \
   C:/Users/eliot/source/repos/RuneBorn/Game.h \
   C:/Users/eliot/source/repos/RuneBorn/src/Systems/DirectionalAnimationSystem.h \
@@ -462,6 +472,8 @@ CMakeFiles/RuneBorn.dir/Main.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Main.
   C:/Dev/SDL2/include/SDL2/SDL_video.h \
   C:/Dev/SDL2/include/SDL2/begin_code.h \
   C:/Dev/SDL2/include/SDL2/close_code.h \
+  C:/Users/eliot/source/repos/RuneBorn/ECS/Components/TileMapComponent.h \
+  C:/Users/eliot/source/repos/RuneBorn/tinyxml2.h \
   C:/msys64/mingw64/include/_mingw.h \
   C:/msys64/mingw64/include/_mingw_mac.h \
   C:/msys64/mingw64/include/_mingw_off_t.h \
@@ -528,6 +540,7 @@ CMakeFiles/RuneBorn.dir/Main.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Main.
   C:/msys64/mingw64/include/c++/15.2.0/bits/shared_ptr_atomic.h \
   C:/msys64/mingw64/include/c++/15.2.0/bits/shared_ptr_base.h \
   C:/msys64/mingw64/include/c++/15.2.0/bits/specfun.h \
+  C:/msys64/mingw64/include/c++/15.2.0/bits/sstream.tcc \
   C:/msys64/mingw64/include/c++/15.2.0/bits/std_abs.h \
   C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algo.h \
   C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algobase.h \
@@ -563,6 +576,7 @@ CMakeFiles/RuneBorn.dir/Main.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Main.
   C:/msys64/mingw64/include/c++/15.2.0/bitset \
   C:/msys64/mingw64/include/c++/15.2.0/cctype \
   C:/msys64/mingw64/include/c++/15.2.0/cerrno \
+  C:/msys64/mingw64/include/c++/15.2.0/climits \
   C:/msys64/mingw64/include/c++/15.2.0/clocale \
   C:/msys64/mingw64/include/c++/15.2.0/cmath \
   C:/msys64/mingw64/include/c++/15.2.0/compare \
@@ -570,6 +584,7 @@ CMakeFiles/RuneBorn.dir/Main.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Main.
   C:/msys64/mingw64/include/c++/15.2.0/cstddef \
   C:/msys64/mingw64/include/c++/15.2.0/cstdio \
   C:/msys64/mingw64/include/c++/15.2.0/cstdlib \
+  C:/msys64/mingw64/include/c++/15.2.0/cstring \
   C:/msys64/mingw64/include/c++/15.2.0/cwchar \
   C:/msys64/mingw64/include/c++/15.2.0/cwctype \
   C:/msys64/mingw64/include/c++/15.2.0/debug/assertions.h \
@@ -597,6 +612,7 @@ CMakeFiles/RuneBorn.dir/Main.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Main.
   C:/msys64/mingw64/include/c++/15.2.0/pstl/glue_memory_defs.h \
   C:/msys64/mingw64/include/c++/15.2.0/pstl/pstl_config.h \
   C:/msys64/mingw64/include/c++/15.2.0/set \
+  C:/msys64/mingw64/include/c++/15.2.0/sstream \
   C:/msys64/mingw64/include/c++/15.2.0/stdexcept \
   C:/msys64/mingw64/include/c++/15.2.0/stdlib.h \
   C:/msys64/mingw64/include/c++/15.2.0/streambuf \
@@ -657,6 +673,7 @@ CMakeFiles/RuneBorn.dir/Main.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Main.
   C:/msys64/mingw64/include/sdks/_mingw_ddk.h \
   C:/msys64/mingw64/include/sec_api/stdio_s.h \
   C:/msys64/mingw64/include/sec_api/stdlib_s.h \
+  C:/msys64/mingw64/include/sec_api/string_s.h \
   C:/msys64/mingw64/include/sec_api/sys/timeb_s.h \
   C:/msys64/mingw64/include/sec_api/wchar_s.h \
   C:/msys64/mingw64/include/setjmp.h \
@@ -666,6 +683,7 @@ CMakeFiles/RuneBorn.dir/Main.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Main.
   C:/msys64/mingw64/include/stdint.h \
   C:/msys64/mingw64/include/stdio.h \
   C:/msys64/mingw64/include/stdlib.h \
+  C:/msys64/mingw64/include/string.h \
   C:/msys64/mingw64/include/swprintf.inl \
   C:/msys64/mingw64/include/sys/timeb.h \
   C:/msys64/mingw64/include/sys/types.h \
@@ -800,11 +818,64 @@ CMakeFiles/RuneBorn.dir/Main.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/Main.
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/xsavesintrin.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/xtestintrin.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Components/AnimationComponent.h \
+  C:/Users/eliot/source/repos/RuneBorn/ECS/Components/CameraComponent.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Components/SpriteComponent.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Components/TransformComponent.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/ECS.h \
+  C:/Users/eliot/source/repos/RuneBorn/ECS/Utils/TiledParser.h \
   C:/Users/eliot/source/repos/RuneBorn/ECS/Utils/Vector2D.h \
   C:/Users/eliot/source/repos/RuneBorn/Game.h
+
+CMakeFiles/RuneBorn.dir/tinyxml2.cpp.obj: C:/Users/eliot/source/repos/RuneBorn/tinyxml2.cpp \
+  C:/msys64/mingw64/include/_mingw.h \
+  C:/msys64/mingw64/include/_mingw_mac.h \
+  C:/msys64/mingw64/include/_mingw_off_t.h \
+  C:/msys64/mingw64/include/_mingw_secapi.h \
+  C:/msys64/mingw64/include/_mingw_stdarg.h \
+  C:/msys64/mingw64/include/c++/15.2.0/bits/exception.h \
+  C:/msys64/mingw64/include/c++/15.2.0/bits/std_abs.h \
+  C:/msys64/mingw64/include/c++/15.2.0/bits/version.h \
+  C:/msys64/mingw64/include/c++/15.2.0/cctype \
+  C:/msys64/mingw64/include/c++/15.2.0/climits \
+  C:/msys64/mingw64/include/c++/15.2.0/cstdarg \
+  C:/msys64/mingw64/include/c++/15.2.0/cstddef \
+  C:/msys64/mingw64/include/c++/15.2.0/cstdio \
+  C:/msys64/mingw64/include/c++/15.2.0/cstdlib \
+  C:/msys64/mingw64/include/c++/15.2.0/cstring \
+  C:/msys64/mingw64/include/c++/15.2.0/new \
+  C:/msys64/mingw64/include/c++/15.2.0/pstl/pstl_config.h \
+  C:/msys64/mingw64/include/c++/15.2.0/stdlib.h \
+  C:/msys64/mingw64/include/c++/15.2.0/x86_64-w64-mingw32/bits/c++config.h \
+  C:/msys64/mingw64/include/c++/15.2.0/x86_64-w64-mingw32/bits/cpu_defines.h \
+  C:/msys64/mingw64/include/c++/15.2.0/x86_64-w64-mingw32/bits/os_defines.h \
+  C:/msys64/mingw64/include/corecrt.h \
+  C:/msys64/mingw64/include/corecrt_stdio_config.h \
+  C:/msys64/mingw64/include/corecrt_wctype.h \
+  C:/msys64/mingw64/include/corecrt_wstdlib.h \
+  C:/msys64/mingw64/include/crtdefs.h \
+  C:/msys64/mingw64/include/ctype.h \
+  C:/msys64/mingw64/include/errno.h \
+  C:/msys64/mingw64/include/limits.h \
+  C:/msys64/mingw64/include/malloc.h \
+  C:/msys64/mingw64/include/sdks/_mingw_ddk.h \
+  C:/msys64/mingw64/include/sec_api/stdio_s.h \
+  C:/msys64/mingw64/include/sec_api/stdlib_s.h \
+  C:/msys64/mingw64/include/sec_api/string_s.h \
+  C:/msys64/mingw64/include/stdarg.h \
+  C:/msys64/mingw64/include/stddef.h \
+  C:/msys64/mingw64/include/stdint.h \
+  C:/msys64/mingw64/include/stdio.h \
+  C:/msys64/mingw64/include/stdlib.h \
+  C:/msys64/mingw64/include/string.h \
+  C:/msys64/mingw64/include/swprintf.inl \
+  C:/msys64/mingw64/include/vadefs.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/limits.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mm_malloc.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdarg.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stddef.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdint.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/syslimits.h \
+  C:/Users/eliot/source/repos/RuneBorn/tinyxml2.h
 
 
 C:/Users/eliot/source/repos/RuneBorn/src/Systems/PlayerInputSystem.h:
@@ -820,6 +891,8 @@ C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/AnimationSystem.h:
 C:/Users/eliot/source/repos/RuneBorn/ECS/ECS.h:
 
 C:/Users/eliot/source/repos/RuneBorn/ECS/Components/TransformComponent.h:
+
+C:/Users/eliot/source/repos/RuneBorn/ECS/Components/CameraComponent.h:
 
 C:/Users/eliot/source/repos/RuneBorn/ECS/Components/AnimationComponent.h:
 
@@ -844,8 +917,6 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/vpclmulqdqintrin.h:
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/usermsrintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/tsxldtrkintrin.h:
-
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/tmmintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/tbmintrin.h:
 
@@ -919,6 +990,8 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512vpopcntdqvlint
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512vpopcntdqintrin.h:
 
+C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/TileMapRenderSystem.h:
+
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512vp2intersectvlintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512vp2intersectintrin.h:
@@ -934,8 +1007,6 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512vbmivlintrin.h
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512vbmiintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512ifmavlintrin.h:
-
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512ifmaintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512fp16vlintrin.h:
 
@@ -958,6 +1029,8 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512bf16intrin.h:
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512vbmi2intrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx10_2satcvtintrin.h:
+
+C:/Users/eliot/source/repos/RuneBorn/ECS/Systems/CameraSystem.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/hresetintrin.h:
 
@@ -999,9 +1072,25 @@ C:/msys64/mingw64/include/sys/types.h:
 
 C:/msys64/mingw64/include/sys/timeb.h:
 
+C:/msys64/mingw64/include/string.h:
+
 C:/msys64/mingw64/include/stdlib.h:
 
 C:/msys64/mingw64/include/stdio.h:
+
+C:/msys64/mingw64/include/stdarg.h:
+
+C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/vaesintrin.h:
+
+C:/msys64/mingw64/include/setjmp.h:
+
+C:/msys64/mingw64/include/sec_api/wchar_s.h:
+
+C:/msys64/mingw64/include/sec_api/sys/timeb_s.h:
+
+C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/tmmintrin.h:
+
+C:/msys64/mingw64/include/sec_api/string_s.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/std_abs.h:
 
@@ -1069,11 +1158,11 @@ C:/msys64/mingw64/include/c++/15.2.0/bits/char_traits.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/basic_string.tcc:
 
+C:/msys64/mingw64/include/c++/15.2.0/sstream:
+
 C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algo.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/cxxabi_forced.h:
-
-C:/msys64/mingw64/include/c++/15.2.0/bits/basic_ios.tcc:
 
 C:/msys64/mingw64/include/c++/15.2.0/stdexcept:
 
@@ -1129,13 +1218,17 @@ C:/msys64/mingw64/include/c++/15.2.0/type_traits:
 
 C:/msys64/mingw64/include/_mingw_stat64.h:
 
+C:/Users/eliot/source/repos/RuneBorn/ECS/Utils/TiledParser.h:
+
 C:/msys64/mingw64/include/_mingw_secapi.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_gamecontroller.h:
 
-C:/Dev/SDL2/include/SDL2/SDL_shape.h:
+C:/msys64/mingw64/include/_mingw_mac.h:
 
-C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algobase.h:
+C:/msys64/mingw64/include/c++/15.2.0/ext/string_conversions.h:
+
+C:/Dev/SDL2/include/SDL2/SDL_error.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/cpp_type_traits.h:
 
@@ -1175,12 +1268,6 @@ C:/Dev/SDL2/include/SDL2/SDL.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_power.h:
 
-C:/msys64/mingw64/include/c++/15.2.0/bits/align.h:
-
-C:/msys64/mingw64/include/c++/15.2.0/bits/stl_bvector.h:
-
-C:/Dev/SDL2/include/SDL2/SDL_error.h:
-
 C:/msys64/mingw64/include/c++/15.2.0/bits/locale_classes.tcc:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mm_malloc.h:
@@ -1213,11 +1300,13 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mwaitxintrin.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/system_error:
 
+C:/msys64/mingw64/include/c++/15.2.0/bits/sstream.tcc:
+
+C:/Dev/SDL2/include/SDL2/SDL_config_windows.h:
+
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/xsavesintrin.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/ext/concurrence.h:
-
-C:/Dev/SDL2/include/SDL2/SDL_config_windows.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_endian.h:
 
@@ -1287,6 +1376,8 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/movrsintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mmintrin.h:
 
+C:/Users/eliot/source/repos/RuneBorn/ECS/Components/TileMapComponent.h:
+
 C:/msys64/mingw64/include/c++/15.2.0/bits/stl_multimap.h:
 
 C:/Dev/SDL2/include/SDL2/SDL_surface.h:
@@ -1313,10 +1404,6 @@ C:/msys64/mingw64/include/c++/15.2.0/ext/alloc_traits.h:
 
 C:/msys64/mingw64/include/sdkddkver.h:
 
-C:/msys64/mingw64/include/_mingw_mac.h:
-
-C:/msys64/mingw64/include/c++/15.2.0/ext/string_conversions.h:
-
 C:/msys64/mingw64/include/c++/15.2.0/bits/stl_uninitialized.h:
 
 C:/Dev/SDL2/include/SDL2/close_code.h:
@@ -1331,6 +1418,14 @@ C:/Dev/SDL2/include/SDL2/SDL_video.h:
 
 C:/Users/eliot/source/repos/RuneBorn/src/Components/DirectionalAnimationComponent.h:
 
+C:/Dev/SDL2/include/SDL2/SDL_shape.h:
+
+C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algobase.h:
+
+C:/msys64/mingw64/include/c++/15.2.0/bits/align.h:
+
+C:/msys64/mingw64/include/c++/15.2.0/bits/stl_bvector.h:
+
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdint.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/stl_construct.h:
@@ -1342,6 +1437,8 @@ C:/msys64/mingw64/include/c++/15.2.0/bits/stl_heap.h:
 C:/msys64/mingw64/include/c++/15.2.0/concepts:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/stl_iterator.h:
+
+C:/Users/eliot/source/repos/RuneBorn/tinyxml2.cpp:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/stl_iterator_base_funcs.h:
 
@@ -1368,10 +1465,6 @@ C:/msys64/mingw64/include/c++/15.2.0/bits/stl_tempbuf.h:
 C:/msys64/mingw64/include/c++/15.2.0/pstl/glue_memory_defs.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/bits/stl_tree.h:
-
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/vaesintrin.h:
-
-C:/msys64/mingw64/include/setjmp.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/uintrintrin.h:
 
@@ -1413,6 +1506,10 @@ C:/Dev/SDL2/include/SDL2/SDL_render.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/cerrno:
 
+C:/msys64/mingw64/include/c++/15.2.0/bits/basic_ios.tcc:
+
+C:/msys64/mingw64/include/c++/15.2.0/climits:
+
 C:/msys64/mingw64/include/c++/15.2.0/cmath:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/prfchiintrin.h:
@@ -1421,13 +1518,15 @@ C:/Dev/SDL2/include/SDL2/SDL_image.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/cstdio:
 
+C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx512ifmaintrin.h:
+
+C:/msys64/mingw64/include/c++/15.2.0/cstring:
+
 C:/Dev/SDL2/include/SDL2/SDL_stdinc.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/debug/assertions.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/istream:
-
-C:/Users/eliot/source/repos/RuneBorn/ECS/Utils/Vector2D.cpp:
 
 C:/msys64/mingw64/include/c++/15.2.0/debug/debug.h:
 
@@ -1438,6 +1537,8 @@ C:/Dev/SDL2/include/SDL2/SDL_assert.h:
 C:/msys64/mingw64/include/c++/15.2.0/iostream:
 
 C:/msys64/mingw64/include/c++/15.2.0/ext/aligned_buffer.h:
+
+C:/Users/eliot/source/repos/RuneBorn/tinyxml2.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/ext/atomicity.h:
 
@@ -1472,6 +1573,8 @@ C:/Dev/SDL2/include/SDL2/SDL_metal.h:
 C:/msys64/mingw64/include/c++/15.2.0/map:
 
 C:/msys64/mingw64/include/c++/15.2.0/memory:
+
+C:/msys64/mingw64/include/c++/15.2.0/cstdarg:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx10_2minmaxintrin.h:
 
@@ -1595,6 +1698,12 @@ C:/msys64/mingw64/include/pthread.h:
 
 C:/msys64/mingw64/include/pthread_compat.h:
 
+C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx10_2-512satcvtintrin.h:
+
+C:/msys64/mingw64/include/signal.h:
+
+C:/msys64/mingw64/include/pthread_signal.h:
+
 C:/Dev/SDL2/include/SDL2/SDL_scancode.h:
 
 C:/msys64/mingw64/include/c++/15.2.0/ostream:
@@ -1606,15 +1715,3 @@ C:/msys64/mingw64/include/sched.h:
 C:/msys64/mingw64/include/sec_api/stdio_s.h:
 
 C:/msys64/mingw64/include/sec_api/stdlib_s.h:
-
-C:/msys64/mingw64/include/sec_api/sys/timeb_s.h:
-
-C:/msys64/mingw64/include/sec_api/wchar_s.h:
-
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx10_2-512satcvtintrin.h:
-
-C:/msys64/mingw64/include/pthread_signal.h:
-
-C:/msys64/mingw64/include/signal.h:
-
-C:/msys64/mingw64/include/stdarg.h:
