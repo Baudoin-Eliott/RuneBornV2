@@ -32,6 +32,11 @@ private:
     SDL_Renderer *m_renderer;
     SDL_Event m_event;
     ECS::Manager m_manager;
+    float m_deltaTime;
+
+    ECS::Entity *currentMap = nullptr;
+    ECS::Entity *m_player = nullptr;
+    CameraComponent* camera = nullptr;
 
 public:
     Game();
@@ -44,6 +49,8 @@ public:
     void Clean();
 
     bool isRunning() { return m_isRunning; }
+
+    void loadMap(const std::string& mapPath, const std::string& spawnPointName);
 
 private:
     void setupSystems();

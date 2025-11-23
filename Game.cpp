@@ -7,6 +7,9 @@
 #include "ECS/Systems/MovementSystem.h"
 #include "ECS/Systems/CameraSystem.h"
 #include "ECS/Systems/TileMapRenderSystem.h"
+#include "ECS/Systems/CollisionSystem.h"
+#include "ECS/Systems/DebugRenderSystem.h"
+#include "ECS/Systems/TriggerSystem.h"
 
 // Systèmes perso
 #include "src/Systems/PlayerInputSystem.h"
@@ -74,17 +77,92 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
     std::cout << "[Game] SpriteComponent ID: " << ECS::getComponentTypeID<SpriteComponent>() << "\n";
     std::cout << "[Game] AnimationComponent ID: " << ECS::getComponentTypeID<AnimationComponent>() << "\n";
 
-    
     // Initialiser les systèmes ECS
     setupSystems();
-
-
 
     // Créer une entité de test
     createTestEntity();
 
     std::cout << "[Game] Initialized successfully!\n";
     return 0;
+}
+
+void Game::loadMap(const std::string &mapPath, const std::string &spawnPointName)
+{
+    std::cout << "[Game] Loading map: " << mapPath << "\n";
+    std::cout << "[Game] Spawn point: " << spawnPointName << "\n";
+
+    if (currentMap)
+    {
+        currentMap->destroy();
+    }
+
+    ECS::Entity &newMap = m_manager.createEntity("Map");
+    newMap.addComponent<TileMapComponent>();
+    auto &tileMapComp = newMap.getComponent<TileMapComponent>();
+
+    std::string reelPath = "assets/Backgrounds/Maps/" + mapPath;
+    if (!TiledParser::loadFromFile(reelPath, tileMapComp, m_renderer))
+    {
+        std::cerr << "[Game] ERROR : Failed to load map: " + reelPath + "\n";
+        return;
+    }
+    currentMap = &newMap;
+
+    auto collisionSys = m_manager.getSystem<CollisionSystem>();
+    collisionSys->setTileMapEntity(currentMap);
+
+    auto triggerSys = m_manager.getSystem<TriggerSystem>();
+    triggerSys->setTileMapEntity(currentMap);
+
+    auto debugRenderSys = m_manager.getSystem<DebugRenderSystem>();
+    debugRenderSys->setTileMapEntity(currentMap);
+
+    auto tilemapSystems = m_manager.getSystems<TileMapRenderSystem>();
+    for (auto *sys : tilemapSystems)
+        sys->setCamera(camera);
+
+    TiledObject *spawn = tileMapComp.getObjectByName(spawnPointName);
+    if (!spawn)
+    {
+        std::cerr << "[Game] no spawn point found named: " << spawnPointName << " on map: " << reelPath << "\n";
+        return;
+    }
+    if (m_player)
+    {
+        auto &transform = m_player->getComponent<TransformComponent>();
+        transform.position.x = spawn->x;
+        transform.position.y = spawn->y;
+        std::cout << "[Game] player teleported to (" << spawn->x << "," << spawn->y << ")\n";
+    }
+
+    if (camera)
+    {
+        auto tileMapComp = currentMap->getComponent<TileMapComponent>(); 
+        float mapWidth = tileMapComp.getMapWidthInPixels();
+        float mapHeight = tileMapComp.getMapHeightInPixels();
+
+        // Calculer le zoom nécessaire pour remplir la fenêtre
+        float zoomX = camera->viewportWidth / mapWidth;
+        float zoomY = camera->viewportHeight / mapHeight;
+
+        // Prendre le plus grand zoom (pour remplir complètement)
+        float optimalZoom = std::max(zoomX, zoomY);
+
+        // Option A : Forcer le zoom optimal
+        //camera->zoom = optimalZoom;
+
+        // Option B : Utiliser un zoom minimum (plus flexible)
+        camera->zoom = std::max(optimalZoom, 2.5f);  // Au moins 1x
+
+        // Mettre à jour les bounds
+        camera->setBounds(0, mapWidth, 0, mapHeight);
+
+        std::cout << "[Game] Map size: " << mapWidth << "x" << mapHeight << "\n";
+        std::cout << "[Game] Optimal zoom: " << optimalZoom << "\n";
+    }
+
+    std::cout << "[Game] map loaded successfully!\n";
 }
 
 void Game::setupSystems()
@@ -94,9 +172,17 @@ void Game::setupSystems()
     auto *inputSys = m_manager.addSystem<PlayerInputSystem>();
     inputSys->setPriority(10);
 
+    // collision
+    auto *collisionSys = m_manager.addSystem<CollisionSystem>();
+    collisionSys->setPriority(15);
+
     // mouvement
     auto *movementSys = m_manager.addSystem<MovementSystem>();
     movementSys->setPriority(20);
+
+    // triggers
+    auto *triggerSys = m_manager.addSystem<TriggerSystem>();
+    triggerSys->setPriority(25);
 
     // Système d'animation
     auto *dirAnimSys = m_manager.addSystem<DirectionalAnimationSystem>();
@@ -106,19 +192,30 @@ void Game::setupSystems()
     auto *cameraSys = m_manager.addSystem<CameraSystem>();
     cameraSys->setPriority(40);
 
-    // TilemapRender
-    auto *tilemapRenderSys = m_manager.addSystem<TileMapRenderSystem>(m_renderer);
-    tilemapRenderSys->setPriority(99);
+    // TilemapRender layer en dessous du joueur
+    auto *tilemapBeforsSys = m_manager.addSystem<TileMapRenderSystem>(m_renderer, 0);
+    tilemapBeforsSys->setPriority(99);
 
     // Système de rendu (toujours en dernier)
     auto *renderSys = m_manager.addSystem<RenderSystem>(m_renderer);
     renderSys->setPriority(100);
 
+    // TilemapRender layyer au dessus
+    auto *tilemapAfterSys = m_manager.addSystem<TileMapRenderSystem>(m_renderer, 1);
+    tilemapAfterSys->setPriority(101);
+
+    // debug pour les hitbox (future tooltip)
+    auto *debugRenderSys = m_manager.addSystem<DebugRenderSystem>(m_renderer, false);
+    debugRenderSys->setPriority(1000);
+
+    // les tri en fonction des priorité
+    m_manager.sortSystems();
     std::cout << "[Game] Systems initialized\n";
 }
 
 void Game::createTestEntity()
 {
+
     ECS::Entity &player = m_manager.createEntity("Player");
     player.addLayer(LAYER_PLAYER);
 
@@ -127,7 +224,7 @@ void Game::createTestEntity()
     player.addComponent<SpriteComponent>(32, 32);
     player.addComponent<PlayerComponent>(100.0f);
     player.addComponent<DirectionalAnimationComponent>("Walk", Direction::Down, 150, 16);
-    
+    player.addComponent<CollisionComponent>(0, 0, 16, 16, "Player");
 
     SDL_Texture *texture = loadTexture("assets/Actor/Characters/Boy/SpriteSheet.png");
     auto &sprite = player.getComponent<SpriteComponent>();
@@ -136,23 +233,28 @@ void Game::createTestEntity()
 
     auto &transform = player.getComponent<TransformComponent>();
     transform.velocity = Vector2D(0, 0);
+    m_player = &player;
 
-    ECS::Entity &map = m_manager.createEntity("Map");
-    map.addComponent<TileMapComponent>();
-    auto &tilemapCompo = map.getComponent<TileMapComponent>();
-    TiledParser::loadFromFile("assets/Backgrounds/Maps/map1.tmx", tilemapCompo, m_renderer);
+    ECS::Entity &thisCamera = m_manager.createEntity("Camera");
+    thisCamera.addComponent<CameraComponent>(800, 600);
+    camera = &thisCamera.getComponent<CameraComponent>();
+    camera->zoom = 2.f;
 
-    ECS::Entity &camera = m_manager.createEntity("Camera");
-    camera.addComponent<CameraComponent>(800, 600);
-    auto &cameracomp = camera.getComponent<CameraComponent>();
-    cameracomp.zoom = 2.f;
-    cameracomp.setBounds(0, tilemapCompo.getMapWidthInPixels(), 0, tilemapCompo.getMapHeightInPixels());
+    // map
+    loadMap("Spawn.tmx", "WorldSpawn");
+
+    auto &tilemapCompo = currentMap->getComponent<TileMapComponent>();
+    camera->setBounds(0, tilemapCompo.getMapWidthInPixels(), 0, tilemapCompo.getMapHeightInPixels());
 
     auto renderSys = m_manager.getSystem<RenderSystem>();
-    renderSys->setCamera(&cameracomp);
+    renderSys->setCamera(camera);
 
-    auto tilemapSys = m_manager.getSystem<TileMapRenderSystem>();
-    tilemapSys->setCamera(&cameracomp);
+    auto debugRenderSys = m_manager.getSystem<DebugRenderSystem>();
+    debugRenderSys->setCamera(camera);
+
+    auto triggerSys = m_manager.getSystem<TriggerSystem>();
+    triggerSys->setTeleportCallback([this](const std::string &destination, const std::string &spawnPoint)
+                                    { this->loadMap(destination, spawnPoint); });
 
     auto cameraSys = m_manager.getSystem<CameraSystem>();
     cameraSys->setTarget(&player);
@@ -229,6 +331,14 @@ void Game::HandleEvents()
             {
                 m_isRunning = false;
             }
+            if (m_event.key.keysym.sym == SDLK_F3)
+            {
+                auto debugRenderSys = m_manager.getSystem<DebugRenderSystem>();
+                if (debugRenderSys)
+                {
+                    debugRenderSys->toggle();
+                }
+            }
             break;
 
         default:
@@ -239,10 +349,7 @@ void Game::HandleEvents()
 
 void Game::Update(float deltaTime)
 {
-
-    // Mise à jour de tous les systèmes
-    m_manager.update(deltaTime);
-
+    m_deltaTime = deltaTime;
     // Nettoyage des entités mortes
     m_manager.refresh();
 }
@@ -252,18 +359,9 @@ void Game::Render()
     // Clear de l'écran
     SDL_SetRenderDrawColor(m_renderer, 30, 30, 30, 255);
     SDL_RenderClear(m_renderer);
+    // Mise à jour de tous les systèmes
 
-    auto *tileMapSys = m_manager.getSystem<TileMapRenderSystem>();
-    if (tileMapSys){
-        tileMapSys->update(0);
-    }
-
-
-    auto *renderSys = m_manager.getSystem<RenderSystem>();
-    if (renderSys)
-    {
-        renderSys->update(0); // Le deltaTime n'est pas utilisé par RenderSystem
-    }
+    m_manager.update(m_deltaTime);
 
     // Afficher
     SDL_RenderPresent(m_renderer);
