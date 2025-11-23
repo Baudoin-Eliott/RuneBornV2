@@ -281,7 +281,7 @@
  <objectgroup id="6" name="Triggers">
   <object id="48" x="138.625" y="144" width="28.75" height="4.27273">
    <properties>
-    <property name="destination" value="house.tmx"/>
+    <property name="destination" value="House.tmx"/>
     <property name="target" value="HouseSpawn"/>
    </properties>
   </object>

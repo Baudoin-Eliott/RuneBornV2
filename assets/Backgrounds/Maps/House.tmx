@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="12">
+ <tileset firstgid="1" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/Pipes.tsx"/>
+ <tileset firstgid="46" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/TilesetDesert.tsx"/>
+ <tileset firstgid="286" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/TilesetDungeon.tsx"/>
+ <tileset firstgid="334" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/TilesetFloorB.tsx"/>
+ <tileset firstgid="411" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/TilesetHole.tsx"/>
+ <tileset firstgid="466" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/TilesetLogic.tsx"/>
+ <tileset firstgid="546" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/TilesetRelief.tsx"/>
+ <tileset firstgid="786" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/TilesetReliefDetail.tsx"/>
+ <tileset firstgid="930" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/TilesetTowers.tsx"/>
+ <tileset firstgid="1074" source="../Tiles/TilesetWater.tsx"/>
+ <tileset firstgid="1550" source="../Tiles/TilesetElement.tsx"/>
+ <tileset firstgid="1790" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/Elements.tsx"/>
+ <tileset firstgid="1817" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/TilesetWallSimple.tsx"/>
+ <tileset firstgid="1927" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/TilesetInteriorFloor.tsx"/>
+ <tileset firstgid="2301" source="../../../../../../Desktop/RuneBorn/Assets/Backgrounds/Tiles/TilesetInterior.tsx"/>
+ <layer id="1" name="Floor" width="10" height="10">
+  <properties>
+   <property name="renderOrder" value="0"/>
+  </properties>
+  <data encoding="csv">
+2082,2082,2082,2082,2082,2082,2082,2082,2082,2082,
+2082,2082,2082,2082,2082,2082,2082,2082,2082,2082,
+2082,2082,2082,2082,2082,2082,2082,2082,2082,2082,
+2082,2082,2086,2087,2082,2086,2087,2082,2082,2082,
+2082,2082,2108,2109,2082,2108,2109,2082,2082,2082,
+2082,2082,2086,2087,2082,2086,2087,2082,2082,2082,
+2082,2082,2108,2109,2082,2108,2109,2082,2082,2082,
+2082,2082,2082,2082,2082,2082,2082,2082,2082,2082,
+2082,2082,2082,2082,2082,2082,2082,2082,2082,2082,
+2082,2082,2082,2082,2082,2082,2082,2082,2082,2082
+</data>
+ </layer>
+ <layer id="2" name="Props" width="10" height="10">
+  <properties>
+   <property name="renderOrder" value="0"/>
+  </properties>
+  <data encoding="csv">
+1672,1673,2314,1672,1673,1672,1673,1672,1673,2315,
+1688,1689,1557,1688,1689,1688,1689,1688,1689,2363,
+0,0,0,0,0,0,0,1734,0,2363,
+0,0,0,0,0,0,0,0,0,2363,
+0,0,0,1627,1628,1629,0,0,0,2363,
+0,0,0,1659,1660,1661,0,0,0,2363,
+0,0,0,0,0,0,0,0,0,2363,
+0,0,0,0,0,0,0,0,0,2363,
+0,0,0,0,0,0,0,0,0,2363,
+0,0,1642,0,0,0,0,0,0,2363
+</data>
+ </layer>
+ <layer id="3" name="Props2" width="10" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+1561,0,0,0,1561,0,0,0,0,0,
+0,1711,0,0,0,0,0,0,0,0,
+0,0,0,1577,1578,1579,0,0,0,0,
+0,0,0,1694,0,1694,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,1711,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="6" name="Objects">
+  <object id="10" name="HouseSpawn" x="36.7273" y="134">
+   <point/>
+  </object>
+  <object id="11" name="House-1Exit" x="92" y="34.5455">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="Collision">
+  <object id="1" x="0" y="0" width="160" height="22"/>
+  <object id="2" x="144" y="22.5455" width="16" height="137.455"/>
+  <object id="3" x="48" y="64" width="48" height="16"/>
+  <object id="4" x="0" y="22.1818" width="1.45455" height="137.455"/>
+  <object id="5" x="54.7273" y="158" width="105.273" height="2"/>
+  <object id="6" x="0" y="157.455" width="23.6364" height="2.54545"/>
+  <object id="9" x="124.364" y="32" width="3.63636" height="15.8182"/>
+ </objectgroup>
+ <objectgroup id="5" name="Triggers">
+  <object id="7" x="24" y="157.818" width="30.9091" height="2.18182">
+   <properties>
+    <property name="destination" value="spawn.tmx"/>
+    <property name="target" value="HouseExit"/>
+   </properties>
+  </object>
+  <object id="8" x="114.364" y="37.4545" width="7.27273" height="9.09091">
+   <properties>
+    <property name="destination" value="House-1"/>
+    <property name="target" value="House-1Spawn"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
