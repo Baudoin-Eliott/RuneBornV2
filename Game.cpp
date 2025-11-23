@@ -23,6 +23,7 @@
 #include "src/Managers/AudioManager.h"
 #include "ECS/Utils/UIManager.h"
 #include "src/UI/MainMenu.h"
+#include "src/UI/PauseMenu.h"
 
 Game::Game()
 {
@@ -115,6 +116,14 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
     UIManager::getInstance().setRenderer(m_renderer);
 
     UIManager::getInstance().pushMenu(new MainMenu(m_renderer, this));
+
+    // Initialiser UIThemeManager
+    if (!UIThemeManager::getInstance().init(m_renderer))
+    {
+        std::cerr << "[Game] Failed to initialize UIThemeManager\n";
+        return 1;
+    }
+    std::cout << "[Game] UIThemeManager initialized\n";
 
     std::cout << "[Game] Initialized successfully!\n";
     return 0;
@@ -233,23 +242,23 @@ void Game::setupSystems()
     // camera
     auto *cameraSys = m_manager.addSystem<CameraSystem>();
     cameraSys->setPriority(40);
-    
+
     // TilemapRender layer en dessous du joueur
-    auto *tilemapBeforsSys = m_manager.addSystem<TileMapRenderSystem>(m_renderer, 0);
+    auto *tilemapBeforsSys = m_manager.addSystem<TileMapRenderSystem>(0);
     tilemapBeforsSys->setPriority(99);
-    
+
     // Système de rendu (toujours en dernier)
-    auto *renderSys = m_manager.addSystem<RenderSystem>(m_renderer);
+    auto *renderSys = m_manager.addSystem<RenderSystem>();
     renderSys->setPriority(100);
-    
+
     // TilemapRender layyer au dessus
-    auto *tilemapAfterSys = m_manager.addSystem<TileMapRenderSystem>(m_renderer, 1);
+    auto *tilemapAfterSys = m_manager.addSystem<TileMapRenderSystem>(1);
     tilemapAfterSys->setPriority(101);
-    
+
     // debug pour les hitbox (future tooltip)
-    auto *debugRenderSys = m_manager.addSystem<DebugRenderSystem>(m_renderer, false);
+    auto *debugRenderSys = m_manager.addSystem<DebugRenderSystem>(false);
     debugRenderSys->setPriority(1000);
-    
+
     // les tri en fonction des priorité
     m_manager.sortSystems();
     std::cout << "[Game] Systems initialized\n";
@@ -358,41 +367,12 @@ SDL_Texture *Game::loadTexture(const char *filepath)
     return texture;
 }
 
-void Game::renderGame()
-{
-
-    m_manager.update(m_deltaTime);
-}
-
-void Game::renderMainMenu()
-{
-}
-
-void Game::renderPauseMenu()
-{
-}
-
-void Game::renderOptionsMenu()
-{
-}
-
-void Game::renderSaveSelect()
-{
-}
-
-void Game::renderCredits()
-{
-}
-
-void Game::renderGameOver()
-{
-}
-
 void Game::HandleEvents()
 {
     while (SDL_PollEvent(&m_event))
     {
-        UIManager::getInstance().handleInput(m_event);
+        if (UIManager::getInstance().handleInput(m_event))
+            continue;
         switch (m_event.type)
         {
         case SDL_QUIT:
@@ -407,12 +387,8 @@ void Game::HandleEvents()
                 if (currentState == GameState::Playing)
                 {
                     SetState(GameState::Paused);
+                    UIManager::getInstance().pushMenu(new PauseMenu(m_renderer, this));
                     std::cout << "[Game] game paused\n";
-                }
-                else if (currentState == GameState::Paused)
-                {
-                    SetState(GameState::Playing);
-                    std::cout << "[Game] game resumed\n";
                 }
                 break;
             }
@@ -442,6 +418,7 @@ void Game::Update(float deltaTime)
     // Update le jeu SEULEMENT si on joue
     if (currentState == GameState::Playing)
     {
+        m_manager.update(m_deltaTime);
         m_manager.refresh();
     }
 
@@ -456,38 +433,17 @@ void Game::Render()
 {
     SDL_SetRenderDrawColor(m_renderer, 30, 30, 30, 255);
     SDL_RenderClear(m_renderer);
-    switch (currentState)
+    if (UIManager::getInstance().hasMenus())
     {
-    case GameState::MainMenu:
+        if (currentState == GameState::Paused)
+        {
+            m_manager.render(m_renderer);
+        }
+
         UIManager::getInstance().render();
-        break;
-    case GameState::Playing:
-        renderGame();
-        break;
-
-    case GameState::Paused:
-        renderPauseMenu();
-        break;
-
-    case GameState::Options:
-        renderOptionsMenu();
-        break;
-
-    case GameState::SaveSelect:
-        renderSaveSelect();
-        break;
-
-    case GameState::Credits:
-        renderCredits();
-        break;
-
-    case GameState::GameOver:
-        renderGameOver();
-        break;
-
-    default:
-        break;
     }
+    else
+        m_manager.render(m_renderer);
 
     SDL_RenderPresent(m_renderer);
 }
@@ -495,8 +451,8 @@ void Game::Render()
 void Game::Clean()
 {
 
+    UIThemeManager::getInstance().clean();
     AudioManager::getInstance().clean();
-    std::cout << "[Game] AudioManager cleaned\n";
     SDL_DestroyRenderer(m_renderer);
     SDL_DestroyWindow(m_window);
     SDL_Quit();

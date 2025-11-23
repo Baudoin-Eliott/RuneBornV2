@@ -43,10 +43,10 @@ private:
     ECS::Entity *m_player = nullptr;
     CameraComponent *camera = nullptr;
 
+public:
     GameState currentState = GameState::MainMenu;
     GameState previousState = GameState::MainMenu;
-
-public:
+    
     Game();
     ~Game();
 
@@ -67,7 +67,7 @@ public:
         return previousState;
     }
 
-    SDL_Renderer* getRenderer() { return m_renderer;}
+    SDL_Renderer *getRenderer() { return m_renderer; }
 
     bool isRunning() { return m_isRunning; }
 
@@ -78,15 +78,4 @@ private:
     void createTestEntity();
     SDL_Texture *createColorTexture(int width, int height, Uint8 r, Uint8 g, Uint8 b);
     SDL_Texture *loadTexture(const char *filepath);
-    void renderGame();
-    void renderMainMenu();
-    void renderPauseMenu();
-    void renderOptionsMenu();
-    void renderSaveSelect();
-    void renderCredits();
-    void renderGameOver();
-
-
-
-
 };

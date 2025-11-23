@@ -2,37 +2,34 @@
 #include "../Game.h"
 #include "../../ECS/Utils/Menu.h"
 #include "../Managers/AudioManager.h"
-#include "../Managers/UIThemeManager.h"
 #include "../../ECS/Utils/GameState.h"
 #include "../../ECS/Utils/UIManager.h"
+#include "MainMenu.h"
 #include "CreditsMenu.h"
 #include <vector>
 #include <string>
 
-class MainMenu : public Menu
+class PauseMenu : public Menu
 {
 
 private:
     SDL_Renderer *renderer;
     Game *game;
 
-    std::vector<std::string> choices = {"Play", "Options", "Credits", "Quit"};
-
+    std::vector<std::string> choices = {"Resume", "Options", "Main Menu", "Quit"};
     int selected = 0;
-
     std::vector<SDL_Rect> buttonRects;
 
 public:
-    MainMenu(SDL_Renderer *rend, Game *g) : Menu("MainMenu"), renderer(rend), game(g)
+    PauseMenu(SDL_Renderer *rend, Game *g) : Menu("PauseMenu"), renderer(rend), game(g)
     {
         for (size_t i = 0; i < choices.size(); ++i)
         {
-            int y = 300 + (i * 60);
+            int y = 300 + (i * 50);
             SDL_Rect buttonRect = {250, y - 5, 300, 50};
             buttonRects.push_back(buttonRect);
         }
     }
-
     void onEnter() override
     {
         Menu::onEnter();
@@ -47,6 +44,7 @@ public:
     }
 
     void onExit() override {}
+
     bool handleInput(SDL_Event &event) override
     {
         if (event.type == SDL_MOUSEWHEEL)
@@ -104,6 +102,7 @@ public:
                 if (selected < 0)
                     selected = choices.size() - 1;
                 return true;
+                break;
             case (SDLK_DOWN):
             case (SDLK_s):
                 AudioManager::getInstance().playSound("MenuMove");
@@ -111,17 +110,19 @@ public:
                 if (selected > choices.size() - 1)
                     selected = 0;
                 return true;
-
+                break;
             case (SDLK_RETURN):
             case (SDLK_SPACE):
                 AudioManager::getInstance().playSound("MenuAccept");
                 executeOption();
                 return true;
+                break;
             case (SDLK_ESCAPE):
-                SDL_Event quit_event;
-                quit_event.type = SDL_QUIT;
-                SDL_PushEvent(&quit_event);
+                AudioManager::getInstance().playSound("MenuCancel");
+                game->SetState(game->previousState);
+                UIManager::getInstance().popMenu();
                 return true;
+                break;
             default:
                 return false;
             }
@@ -133,17 +134,16 @@ public:
     {
 
         SDL_SetRenderDrawBlendMode(rend, SDL_BLENDMODE_BLEND);
-        SDL_SetRenderDrawColor(rend, 20, 20, 20, 255);
+        SDL_SetRenderDrawColor(rend, 0, 0, 0, 128);
         SDL_Rect overlay = {0, 0, 800, 600};
         SDL_RenderFillRect(rend, &overlay);
 
         UIThemeManager::getInstance().renderPanel(250, 80, 300, 80);
 
-        UIThemeManager::getInstance().renderTextCentered("RUNEBORN", 400, 120, {255, 255, 255, 255});
+        UIThemeManager::getInstance().renderTextCentered("PAUSED", 400, 120, {255, 255, 255, 255});
 
-        // Options du menu
         int startY = 300;
-        int spacing = 60;
+        int spacing = 50;
 
         for (size_t i = 0; i < choices.size(); ++i)
         {
@@ -168,7 +168,7 @@ private:
     void executeOption()
     {
 
-        if (choices[selected] == "Play")
+        if (choices[selected] == "Resume")
         {
             game->SetState(GameState::Playing);
             UIManager::getInstance().clearMenu();
@@ -178,9 +178,12 @@ private:
 
             std::cout << "[MainMenu] Options not implemented yet\n";
         }
-        else if (choices[selected] == "Credits")
+        else if (choices[selected] == "Main Menu")
         {
-            UIManager::getInstance().pushMenu(new CreditsMenu(renderer, game));
+
+            UIManager::getInstance().clearMenu();
+            UIManager::getInstance().pushMenu(new MainMenu(renderer, game));
+            game->SetState(GameState::MainMenu);
         }
         else if (choices[selected] == "Quit")
         {

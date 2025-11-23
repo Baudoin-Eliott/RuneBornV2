@@ -16,12 +16,14 @@ set(SDL2_LIBRARY "${SDL2_ROOT_DIR}/lib/libSDL2.dll.a")
 set(SDL2_IMAGE_LIBRARY "${SDL2_ROOT_DIR}/lib/libSDL2_image.dll.a")
 set(SDL2_MIXER_LIBRARY "${SDL2_ROOT_DIR}/lib/libSDL2_mixer.dll.a")
 set(SDL2MAIN_LIBRARY "${SDL2_ROOT_DIR}/lib/libSDL2main.a")
+set(SDL2_TTF_LIBRARY "${SDL2_ROOT_DIR}/lib/libSDL2_ttf.dll.a")
 
 # DLLs à copier
 set(SDL2_RUNTIME_DLLS
     "${SDL2_ROOT_DIR}/bin/SDL2.dll"
     "${SDL2_ROOT_DIR}/bin/SDL2_image.dll"
     "${SDL2_ROOT_DIR}/bin/SDL2_mixer.dll"
+    "${SDL2_ROOT_DIR}/bin/SDL2_ttf.dll"
 )
 
 # ========================================
@@ -65,6 +67,7 @@ target_link_libraries(RuneBorn PRIVATE
     ${SDL2_LIBRARY}
     ${SDL2_IMAGE_LIBRARY}
     ${SDL2_MIXER_LIBRARY}
+    ${SDL2_TTF_LIBRARY}
 )
 
 # ========================================
