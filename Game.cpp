@@ -19,6 +19,11 @@
 #include "src/Components/PlayerComponent.h"
 #include "src/Components/DirectionalAnimationComponent.h"
 
+// Managers
+#include "src/Managers/AudioManager.h"
+#include "ECS/Utils/UIManager.h"
+#include "src/UI/MainMenu.h"
+
 Game::Game()
 {
     m_isRunning = true;
@@ -46,6 +51,27 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
         return 1;
     }
     std::cout << "[Game] SDL_image initialized\n";
+
+    if (!AudioManager::getInstance().init())
+    {
+        std::cerr << "[Game] Failed to initialize AudioManager\n";
+        return 1;
+    }
+    std::cout << "[Game] AudioManager initialized\n";
+
+    // Charger les footsteps (2 variations)
+    if (!AudioManager::getInstance().loadSound("footstep", {"Sounds/Elemental/Grass.wav", "Sounds/Elemental/Grass2.wav"}))
+    {
+        std::cerr << "[Game] Failed to load footstep sounds\n";
+    }
+
+    // Charger le son de téléportation
+    if (!AudioManager::getInstance().loadSound("teleport", {"Sounds/Magic & Skill/Fx.wav"}))
+    {
+        std::cerr << "[Game] Failed to load teleport sound\n";
+    }
+
+    std::cout << "[Game] All sounds loaded\n";
 
     // Création de la fenêtre
     Uint32 windowFlags = fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
@@ -82,6 +108,13 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
 
     // Créer une entité de test
     createTestEntity();
+
+    AudioManager::getInstance().playMusic("adventure", 2000);
+    std::cout << "[Game] Music started\n";
+
+    UIManager::getInstance().setRenderer(m_renderer);
+
+    UIManager::getInstance().pushMenu(new MainMenu(m_renderer, this));
 
     std::cout << "[Game] Initialized successfully!\n";
     return 0;
@@ -138,7 +171,7 @@ void Game::loadMap(const std::string &mapPath, const std::string &spawnPointName
 
     if (camera)
     {
-        auto tileMapComp = currentMap->getComponent<TileMapComponent>(); 
+        auto tileMapComp = currentMap->getComponent<TileMapComponent>();
         float mapWidth = tileMapComp.getMapWidthInPixels();
         float mapHeight = tileMapComp.getMapHeightInPixels();
 
@@ -150,16 +183,25 @@ void Game::loadMap(const std::string &mapPath, const std::string &spawnPointName
         float optimalZoom = std::max(zoomX, zoomY);
 
         // Option A : Forcer le zoom optimal
-        //camera->zoom = optimalZoom;
+        // camera->zoom = optimalZoom;
 
         // Option B : Utiliser un zoom minimum (plus flexible)
-        camera->zoom = std::max(optimalZoom, 2.5f);  // Au moins 1x
+        camera->zoom = std::max(optimalZoom, 2.5f); // Au moins 1x
 
         // Mettre à jour les bounds
         camera->setBounds(0, mapWidth, 0, mapHeight);
 
         std::cout << "[Game] Map size: " << mapWidth << "x" << mapHeight << "\n";
         std::cout << "[Game] Optimal zoom: " << optimalZoom << "\n";
+    }
+
+    TiledObject *musicObj = tileMapComp.getObjectByName("Music");
+    if (musicObj)
+    {
+        std::cout << "[Game] start find a music !\n";
+        if (!AudioManager::getInstance().hasLoadMusic(musicObj->properties["MusicId"]))
+            AudioManager::getInstance().loadMusic(musicObj->properties["MusicId"], musicObj->properties["MusicFilePath"]);
+        AudioManager::getInstance().playMusic(musicObj->properties["MusicId"], 2000);
     }
 
     std::cout << "[Game] map loaded successfully!\n";
@@ -191,23 +233,23 @@ void Game::setupSystems()
     // camera
     auto *cameraSys = m_manager.addSystem<CameraSystem>();
     cameraSys->setPriority(40);
-
+    
     // TilemapRender layer en dessous du joueur
     auto *tilemapBeforsSys = m_manager.addSystem<TileMapRenderSystem>(m_renderer, 0);
     tilemapBeforsSys->setPriority(99);
-
+    
     // Système de rendu (toujours en dernier)
     auto *renderSys = m_manager.addSystem<RenderSystem>(m_renderer);
     renderSys->setPriority(100);
-
+    
     // TilemapRender layyer au dessus
     auto *tilemapAfterSys = m_manager.addSystem<TileMapRenderSystem>(m_renderer, 1);
     tilemapAfterSys->setPriority(101);
-
+    
     // debug pour les hitbox (future tooltip)
     auto *debugRenderSys = m_manager.addSystem<DebugRenderSystem>(m_renderer, false);
     debugRenderSys->setPriority(1000);
-
+    
     // les tri en fonction des priorité
     m_manager.sortSystems();
     std::cout << "[Game] Systems initialized\n";
@@ -316,10 +358,41 @@ SDL_Texture *Game::loadTexture(const char *filepath)
     return texture;
 }
 
+void Game::renderGame()
+{
+
+    m_manager.update(m_deltaTime);
+}
+
+void Game::renderMainMenu()
+{
+}
+
+void Game::renderPauseMenu()
+{
+}
+
+void Game::renderOptionsMenu()
+{
+}
+
+void Game::renderSaveSelect()
+{
+}
+
+void Game::renderCredits()
+{
+}
+
+void Game::renderGameOver()
+{
+}
+
 void Game::HandleEvents()
 {
     while (SDL_PollEvent(&m_event))
     {
+        UIManager::getInstance().handleInput(m_event);
         switch (m_event.type)
         {
         case SDL_QUIT:
@@ -327,11 +400,23 @@ void Game::HandleEvents()
             break;
 
         case SDL_KEYDOWN:
-            if (m_event.key.keysym.sym == SDLK_ESCAPE)
+            switch (m_event.key.keysym.sym)
             {
-                m_isRunning = false;
+            case SDLK_ESCAPE:
+            {
+                if (currentState == GameState::Playing)
+                {
+                    SetState(GameState::Paused);
+                    std::cout << "[Game] game paused\n";
+                }
+                else if (currentState == GameState::Paused)
+                {
+                    SetState(GameState::Playing);
+                    std::cout << "[Game] game resumed\n";
+                }
+                break;
             }
-            if (m_event.key.keysym.sym == SDLK_F3)
+            case SDLK_F3:
             {
                 auto debugRenderSys = m_manager.getSystem<DebugRenderSystem>();
                 if (debugRenderSys)
@@ -340,6 +425,9 @@ void Game::HandleEvents()
                 }
             }
             break;
+            default:
+                break;
+            }
 
         default:
             break;
@@ -350,28 +438,75 @@ void Game::HandleEvents()
 void Game::Update(float deltaTime)
 {
     m_deltaTime = deltaTime;
-    // Nettoyage des entités mortes
-    m_manager.refresh();
+
+    // Update le jeu SEULEMENT si on joue
+    if (currentState == GameState::Playing)
+    {
+        m_manager.refresh();
+    }
+
+    // Update l'UI si des menus sont actifs
+    if (UIManager::getInstance().hasMenus())
+    {
+        UIManager::getInstance().update(deltaTime);
+    }
 }
 
 void Game::Render()
 {
-    // Clear de l'écran
     SDL_SetRenderDrawColor(m_renderer, 30, 30, 30, 255);
     SDL_RenderClear(m_renderer);
-    // Mise à jour de tous les systèmes
+    switch (currentState)
+    {
+    case GameState::MainMenu:
+        UIManager::getInstance().render();
+        break;
+    case GameState::Playing:
+        renderGame();
+        break;
 
-    m_manager.update(m_deltaTime);
+    case GameState::Paused:
+        renderPauseMenu();
+        break;
 
-    // Afficher
+    case GameState::Options:
+        renderOptionsMenu();
+        break;
+
+    case GameState::SaveSelect:
+        renderSaveSelect();
+        break;
+
+    case GameState::Credits:
+        renderCredits();
+        break;
+
+    case GameState::GameOver:
+        renderGameOver();
+        break;
+
+    default:
+        break;
+    }
+
     SDL_RenderPresent(m_renderer);
 }
 
 void Game::Clean()
 {
+
+    AudioManager::getInstance().clean();
+    std::cout << "[Game] AudioManager cleaned\n";
     SDL_DestroyRenderer(m_renderer);
     SDL_DestroyWindow(m_window);
     SDL_Quit();
 
     std::cout << "[Game] Cleaned up\n";
+}
+
+void Game::SetState(GameState newState)
+{
+    previousState = currentState;
+    currentState = newState;
+    std::cout << "[Game] State changed to: " << static_cast<int>(newState) << "\n";
 }

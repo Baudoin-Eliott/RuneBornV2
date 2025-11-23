@@ -3,6 +3,7 @@
 #include "../../ECS/Components/SpriteComponent.h"
 #include "../Components/DirectionalAnimationComponent.h"
 #include <SDL2/SDL.h>
+#include "../Managers/AudioManager.h"
 
 /*
  * ============================================================================
@@ -56,6 +57,8 @@ public:
             {
                 anim.currentFrame++;
                 anim.lastTimeFrame = currentTime;
+                if (anim.currentFrame % 2 == 0)
+                    AudioManager::getInstance().playSound("footstep");
             }
             if (anim.currentFrame >= anim.getFrameCount())
             {

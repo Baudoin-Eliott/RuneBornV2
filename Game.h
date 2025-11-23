@@ -2,6 +2,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include "../ECS/Utils/GameState.h"
+
 // Nouveau ECS
 #include "ECS/ECS.h"
 #include "ECS/Utils/Vector2D.h"
@@ -10,6 +12,9 @@
 #include "ECS/Components/SpriteComponent.h"
 #include "ECS/Components/AnimationComponent.h"
 #include "ECS/Components/CameraComponent.h"
+
+// Managers
+#include "src/Managers/AudioManager.h"
 
 // Layers du jeu
 enum GameLayer
@@ -36,7 +41,10 @@ private:
 
     ECS::Entity *currentMap = nullptr;
     ECS::Entity *m_player = nullptr;
-    CameraComponent* camera = nullptr;
+    CameraComponent *camera = nullptr;
+
+    GameState currentState = GameState::MainMenu;
+    GameState previousState = GameState::MainMenu;
 
 public:
     Game();
@@ -48,13 +56,37 @@ public:
     void Render();
     void Clean();
 
+    void SetState(GameState newState);
+    GameState getState() const
+    {
+        return currentState;
+    }
+
+    GameState getPreviousState() const
+    {
+        return previousState;
+    }
+
+    SDL_Renderer* getRenderer() { return m_renderer;}
+
     bool isRunning() { return m_isRunning; }
 
-    void loadMap(const std::string& mapPath, const std::string& spawnPointName);
+    void loadMap(const std::string &mapPath, const std::string &spawnPointName);
 
 private:
     void setupSystems();
     void createTestEntity();
     SDL_Texture *createColorTexture(int width, int height, Uint8 r, Uint8 g, Uint8 b);
     SDL_Texture *loadTexture(const char *filepath);
+    void renderGame();
+    void renderMainMenu();
+    void renderPauseMenu();
+    void renderOptionsMenu();
+    void renderSaveSelect();
+    void renderCredits();
+    void renderGameOver();
+
+
+
+
 };

@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 
+
 /*
  * ============================================================================
  * DirectionalAnimationComponent - Animations avec directions
