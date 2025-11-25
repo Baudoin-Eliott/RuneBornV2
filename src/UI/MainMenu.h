@@ -6,6 +6,7 @@
 #include "../../ECS/Utils/GameState.h"
 #include "../../ECS/Utils/UIManager.h"
 #include "CreditsMenu.h"
+#include "OptionsMenu.h"
 #include <vector>
 #include <string>
 
@@ -153,11 +154,11 @@ public:
             if (i == static_cast<size_t>(selected))
             {
                 UIThemeManager::getInstance().renderPanel(250, y - 5, 300, 50);
-                textColor = {255, 255, 0, 255};
+                textColor = UIThemeManager::getInstance().getCurrentSelectedColor();
             }
             else
             {
-                textColor = {200, 200, 200, 255};
+                textColor = UIThemeManager::getInstance().getCurrentColor();
             }
 
             UIThemeManager::getInstance().renderTextCentered(choices[i], 400, y + 20, textColor);
@@ -175,8 +176,7 @@ private:
         }
         else if (choices[selected] == "Options")
         {
-
-            std::cout << "[MainMenu] Options not implemented yet\n";
+            UIManager::getInstance().pushMenu(new OptionsMenu(renderer, game));
         }
         else if (choices[selected] == "Credits")
         {

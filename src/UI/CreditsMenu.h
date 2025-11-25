@@ -13,8 +13,8 @@ class CreditsMenu : public Menu
 private:
     SDL_Renderer *renderer;
     Game *game;
-    std::vector<std::string> titles = {"Graphics", "Graphics", "Graphics", "Graphics", "Graphics", "Graphics", "Graphics", "Graphics", "Graphics", "Graphics"};
-    std::vector<std::string> texts = {"Thanks to : Pixel-boy and AAA", "Thanks to : Pixel-boy and AAA", "Thanks to : Pixel-boy and AAA", "Thanks to : Pixel-boy and AAA", "Thanks to : Pixel-boy and AAA", "Thanks to : Pixel-boy and AAA", "Thanks to : Pixel-boy and AAA", "Thanks to : Pixel-boy and AAA", "Thanks to : Pixel-boy and AAA", "Thanks to : Pixel-boy and AAA", "Thanks to : Pixel-boy and AAA"};
+    std::vector<std::string> titles = {"Graphics", "Ceci est un titre", "Faut que ce sois long...", "Alors je vais mettre bcp de texte", "Ca suffie toujours pas", "Et quand y'en a plus...", "Ca finit jamais...", "HIP HIP HIP"};
+    std::vector<std::string> texts = {"Thanks to : Pixel-boy and AAA", "Ceci est un texte", "Donc je vais ecrire", "Vraiment, Beaucoup ?", "J'ecris encore", "eh beh y'en as encore", "Nan jamais", "HOURA"};
     int selected = 0;
     int posY = 0;
     int minY = 0;
@@ -165,7 +165,7 @@ public:
 
         UIThemeManager::getInstance().renderPanel(250, 30, 300, 80);
 
-        UIThemeManager::getInstance().renderTextCentered("RUNEBORN", 400, 70, {255, 255, 255, 255});
+        UIThemeManager::getInstance().renderTextCentered("RUNEBORN", 400, 70,UIThemeManager::getInstance().getCurrentColor());
         // Options du menu
         int Y = 160 + posY;
         int spacing = 60;
@@ -188,7 +188,7 @@ public:
         buttonRects.clear();
         buttonRects.push_back(buttonRect);
         UIThemeManager::getInstance().renderPanel(250, Y - 5, 300, 50);
-        UIThemeManager::getInstance().renderTextCentered("Return", 400, Y + 20, {255, 255, 0, 255});
+        UIThemeManager::getInstance().renderTextCentered("Return", 400, Y + 20, UIThemeManager::getInstance().getCurrentSelectedColor());
 
         // slider
 

@@ -19,10 +19,12 @@ private:
     int fontSize = 24;
 
     std::unordered_map<std::string, SDL_Texture *> themePanels;
+    std::unordered_map<std::string, SDL_Texture *> customTextureCache;
     std::string currentTheme = "ThemeDark";
 
     int cornerSize = 16;
-
+    SDL_Color currentColor = {200, 200, 200, 255};
+    SDL_Color currentSelectedColor = {255, 255, 0, 255};
     bool initialized = false;
 
 public:
@@ -59,6 +61,26 @@ public:
 
         initialized = true;
         return true;
+    }
+
+    SDL_Color getCurrentColor()
+    {
+        return currentColor;
+    }
+
+    void setCurrentColor(SDL_Color newCol)
+    {
+        currentColor = newCol;
+    }
+
+    SDL_Color getCurrentSelectedColor()
+    {
+        return currentSelectedColor;
+    }
+
+    void setCurrentSelectedColor(SDL_Color newCol)
+    {
+        currentSelectedColor = newCol;
     }
 
     void clean()
@@ -180,11 +202,13 @@ public:
         renderText(text, centerX - textW / 2, centerY - textH / 2, color);
     }
 
-    void renderPanel(int x, int y, int w, int h, const std::string &pathToImage = "")
+    void renderPanel(int x, int y, int w, int h, const std::string &customName = "")
     {
         SDL_Texture *panelTexture = nullptr;
-        if (pathToImage == "")
+
+        if (customName == "")
         {
+
             auto it = themePanels.find(currentTheme);
             if (it == themePanels.end())
             {
@@ -195,13 +219,31 @@ public:
         }
         else
         {
-            SDL_Surface *surface = IMG_Load(pathToImage.c_str());
-            if (!surface){
-                std::cerr << "[UIThemeManager] Error while loading surface from: "<< pathToImage << "\n";
-                return;
+            auto it = customTextureCache.find(customName);
+             if (it != customTextureCache.end())
+            {
+                panelTexture = it->second;
             }
-            panelTexture = SDL_CreateTextureFromSurface(renderer, surface);
-            SDL_FreeSurface(surface);
+            else
+            {
+                SDL_Surface *surface = IMG_Load(customName.c_str());
+                if (!surface)
+                {
+                    std::cerr << "[UIThemeManager] Error while loading surface from: " << customName << "\n";
+                    return;
+                }
+
+                panelTexture = SDL_CreateTextureFromSurface(renderer, surface);
+                SDL_FreeSurface(surface);
+                
+                if (!panelTexture)
+                {
+                    std::cerr << "[UIThemeManager] Error creating texture from: " << customName << "\n";
+                    return;
+                }
+                customTextureCache[customName] = panelTexture;
+
+            }
         }
 
         int texW, texH;
@@ -210,52 +252,63 @@ public:
         int regionW = texW / 3;
         int regionH = texH / 3;
 
-        // Coins (ne s'étirent jamais)
-        // Top-left
         SDL_Rect src = {0, 0, regionW, regionH};
         SDL_Rect dst = {x, y, regionW, regionH};
         SDL_RenderCopy(renderer, panelTexture, &src, &dst);
 
-        // Top-right
         src = {regionW * 2, 0, regionW, regionH};
         dst = {x + w - regionW, y, regionW, regionH};
         SDL_RenderCopy(renderer, panelTexture, &src, &dst);
 
-        // Bottom-left
         src = {0, regionH * 2, regionW, regionH};
         dst = {x, y + h - regionH, regionW, regionH};
         SDL_RenderCopy(renderer, panelTexture, &src, &dst);
 
-        // Bottom-right
         src = {regionW * 2, regionH * 2, regionW, regionH};
         dst = {x + w - regionW, y + h - regionH, regionW, regionH};
         SDL_RenderCopy(renderer, panelTexture, &src, &dst);
 
-        // Bords (s'étirent dans une direction)
-        // Top
         src = {regionW, 0, regionW, regionH};
         dst = {x + regionW, y, w - regionW * 2, regionH};
         SDL_RenderCopy(renderer, panelTexture, &src, &dst);
 
-        // Bottom
         src = {regionW, regionH * 2, regionW, regionH};
         dst = {x + regionW, y + h - regionH, w - regionW * 2, regionH};
         SDL_RenderCopy(renderer, panelTexture, &src, &dst);
 
-        // Left
         src = {0, regionH, regionW, regionH};
         dst = {x, y + regionH, regionW, h - regionH * 2};
         SDL_RenderCopy(renderer, panelTexture, &src, &dst);
 
-        // Right
         src = {regionW * 2, regionH, regionW, regionH};
         dst = {x + w - regionW, y + regionH, regionW, h - regionH * 2};
         SDL_RenderCopy(renderer, panelTexture, &src, &dst);
 
-        // Centre (s'étire dans les 2 directions)
         src = {regionW, regionH, regionW, regionH};
         dst = {x + regionW, y + regionH, w - regionW * 2, h - regionH * 2};
         SDL_RenderCopy(renderer, panelTexture, &src, &dst);
+    }
+
+    ~UIThemeManager()
+    {
+
+        for (auto &pair : themePanels)
+        {
+            if (pair.second)
+            {
+                SDL_DestroyTexture(pair.second);
+            }
+        }
+        themePanels.clear();
+        for (auto &pair : customTextureCache){
+            if (pair.second){
+                SDL_DestroyTexture(pair.second);
+            }
+        }
+        customTextureCache.clear();
+
+        TTF_CloseFont(font);
+        font = nullptr;
     }
 
     int getCornerSize() const { return cornerSize; }
