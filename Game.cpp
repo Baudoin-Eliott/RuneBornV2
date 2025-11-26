@@ -1,6 +1,10 @@
 #include "Game.h"
 #include <iostream>
 
+// Components de base de l'ECS (IMPORTANT: avant les systèmes!)
+#include "ECS/Components/CollisionComponent.h"
+#include "ECS/Components/TileMapComponent.h"
+
 // Systèmes de base de l'ECS
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
@@ -24,6 +28,7 @@
 #include "ECS/Utils/UIManager.h"
 #include "src/UI/MainMenu.h"
 #include "src/UI/PauseMenu.h"
+#include "src/UI/RunesMenu.h"
 
 Game::Game()
 {

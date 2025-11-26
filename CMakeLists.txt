@@ -6,9 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# ========================================
-# Configuration SDL2 (générique)
-# ========================================
 set(SDL2_ROOT_DIR "C:/Dev/SDL2" CACHE PATH "SDL2 root directory")
 
 set(SDL2_INCLUDE_DIR "${SDL2_ROOT_DIR}/include")
@@ -26,14 +23,28 @@ set(SDL2_RUNTIME_DLLS
     "${SDL2_ROOT_DIR}/bin/SDL2_ttf.dll"
 )
 
-# ========================================
-# Fichiers source
-# ========================================
+
 set(SOURCES
     Main.cpp
     Game.cpp
     DataManager.cpp
     tinyxml2.cpp
+    ECS/Systems/CollisionSystem.cpp
+    ECS/Systems/MovementSystem.cpp
+    ECS/Systems/TriggerSystem.cpp
+    ECS/Systems/CameraSystem.cpp
+    ECS/Systems/TileMapRenderSystem.cpp
+    ECS/Systems/RenderSystem.cpp
+    ECS/Systems/DebugRenderSystem.cpp
+    src/UI/MainMenu.cpp
+    src/UI/PauseMenu.cpp
+    src/UI/OptionsMenu.cpp
+    src/UI/CreditsMenu.cpp
+    src/UI/RunesMenu.cpp
+    src/Managers/AudioManager.cpp
+    src/Managers/UIThemeManager.cpp
+    src/Systems/DirectionalAnimationSystem.cpp
+    src/Systems/PlayerInputSystem.cpp
 )
 
 set(HEADERS
@@ -48,9 +59,6 @@ set(HEADERS
     ECS/Systems/AnimationSystem.h
 )
 
-# ========================================
-# Création de l'exécutable
-# ========================================
 add_executable(RuneBorn ${SOURCES} ${HEADERS})
 
 
@@ -70,9 +78,6 @@ target_link_libraries(RuneBorn PRIVATE
     ${SDL2_TTF_LIBRARY}
 )
 
-# ========================================
-# Copie des DLLs (générique et robuste)
-# ========================================
 foreach(DLL_FILE ${SDL2_RUNTIME_DLLS})
     if(EXISTS "${DLL_FILE}")
         add_custom_command(TARGET RuneBorn POST_BUILD
