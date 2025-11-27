@@ -1,5 +1,5 @@
 #pragma once
-#include "../../ECS/ECS.h"
+#include <ECS.h>
 #include "../../ECS/Components/SpriteComponent.h"
 #include "../Components/DirectionalAnimationComponent.h"
 #include <SDL2/SDL.h>

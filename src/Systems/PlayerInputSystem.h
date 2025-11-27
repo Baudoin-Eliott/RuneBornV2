@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../ECS/ECS.h"
+#include <ECS.h>
 #include "../../ECS/Components/TransformComponent.h"
 #include "../Components/PlayerComponent.h"
 #include "../Components/DirectionalAnimationComponent.h"

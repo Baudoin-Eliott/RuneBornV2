@@ -30,6 +30,9 @@
 #include "src/UI/PauseMenu.h"
 #include "src/UI/RunesMenu.h"
 
+//Spells
+#include "src/Spells/SpellDataBase.h"
+
 Game::Game()
 {
     m_isRunning = true;
@@ -129,6 +132,11 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
         return 1;
     }
     std::cout << "[Game] UIThemeManager initialized\n";
+    if (SpellDataBase::loadFromFile("assets/Datas/spells.json")) {
+        std::cout << "Spells loaded!\n";
+    } else {
+        std::cerr << "Failed to load spells!\n";
+    }
 
     std::cout << "[Game] Initialized successfully!\n";
     return 0;
@@ -406,6 +414,18 @@ void Game::HandleEvents()
                 }
             }
             break;
+            case SDLK_r:
+                if (currentState == GameState::Playing)
+                {
+                    UIManager::getInstance().pushMenu(new RunesMenu(m_renderer, this, 3));
+                    SetState(GameState::Casting);
+                }
+                else if (currentState == GameState::Casting)
+                {
+                    UIManager::getInstance().popMenu();
+                    SetState(GameState::Playing);
+                }
+
             default:
                 break;
             }
@@ -426,6 +446,11 @@ void Game::Update(float deltaTime)
         m_manager.update(m_deltaTime);
         m_manager.refresh();
     }
+    if (currentState == GameState::Casting)
+    {
+        m_manager.update(m_deltaTime * 0.2f);
+        m_manager.refresh();
+    }
 
     // Update l'UI si des menus sont actifs
     if (UIManager::getInstance().hasMenus())
@@ -440,7 +465,7 @@ void Game::Render()
     SDL_RenderClear(m_renderer);
     if (UIManager::getInstance().hasMenus())
     {
-        if (currentState == GameState::Paused)
+        if (currentState == GameState::Paused || currentState == GameState::Casting)
         {
             m_manager.render(m_renderer);
         }

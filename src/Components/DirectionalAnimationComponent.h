@@ -1,5 +1,5 @@
 #pragma once
-#include "../../ECS/ECS.h"
+#include <ECS.h>
 #include <SDL2/SDL.h>
 #include <string>
 

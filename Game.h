@@ -5,7 +5,7 @@
 #include "../ECS/Utils/GameState.h"
 
 // Nouveau ECS
-#include "ECS/ECS.h"
+#include <ECS.h>
 #include "ECS/Utils/Vector2D.h"
 #include "ECS/Utils/TiledParser.h"
 #include "ECS/Components/TransformComponent.h"
