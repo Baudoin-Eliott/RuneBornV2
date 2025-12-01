@@ -14,4 +14,6 @@ struct SpellPattern {
     int baseDamage;
     int speed;
     int lifetime;
+
+    int getCostBy1DId(int id) {return costMap[id / level][id % level];};
 };

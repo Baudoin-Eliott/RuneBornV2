@@ -78,7 +78,7 @@
   <object id="4" x="0" y="22.1818" width="1.45455" height="137.455"/>
   <object id="5" x="54.7273" y="158" width="105.273" height="2"/>
   <object id="6" x="0" y="157.455" width="23.6364" height="2.54545"/>
-  <object id="9" x="124.364" y="32" width="3.63636" height="15.8182"/>
+  <object id="9" x="122.864" y="32.375" width="3.63636" height="14.9432"/>
  </objectgroup>
  <objectgroup id="5" name="Triggers">
   <object id="7" x="24" y="157.818" width="30.9091" height="2.18182">

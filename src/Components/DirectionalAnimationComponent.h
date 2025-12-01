@@ -148,7 +148,5 @@ public:
     void init() override
     {
         lastTimeFrame = SDL_GetTicks();
-        std::cout << "[DirectionalAnimationComponent] Initialized with animation: "
-                  << currentAnimation << "\n";
     }
 };

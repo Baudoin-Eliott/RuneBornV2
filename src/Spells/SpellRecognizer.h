@@ -37,11 +37,12 @@ private:
 
     static int calculateScore(
         const std::vector<int>& normalizedPath,
-        const SpellPattern& spell
+        SpellPattern& spell
     );
     
     static int verifyPathOrder(
         const std::vector<int>& normalizedPath,
-        const std::vector<int>& correctPath
+        const std::vector<int>& correctPath,
+        int gridSize
     );
 };

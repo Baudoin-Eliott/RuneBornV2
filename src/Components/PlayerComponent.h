@@ -58,15 +58,11 @@ public:
         experience -= experienceToNextLevel;
         experienceToNextLevel = static_cast<int>(experienceToNextLevel * 1.5f);
         
-        // Bonus de level up
-        // (vous pourrez ajouter des stats ici plus tard)
         
         std::cout << "[Player] Level UP! Now level " << level << "\n";
     }
     
-    // Hook d'initialisation (appelé quand on ajoute le composant)
+
     void init() override {
-        std::cout << "[PlayerComponent] Player initialized with speed: " 
-                  << moveSpeed << "\n";
     }
 };

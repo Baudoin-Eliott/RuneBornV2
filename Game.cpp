@@ -59,14 +59,13 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
         std::cerr << "Error initializing SDL_image: " << IMG_GetError() << std::endl;
         return 1;
     }
-    std::cout << "[Game] SDL_image initialized\n";
+
 
     if (!AudioManager::getInstance().init())
     {
         std::cerr << "[Game] Failed to initialize AudioManager\n";
         return 1;
     }
-    std::cout << "[Game] AudioManager initialized\n";
 
     // Charger les footsteps (2 variations)
     if (!AudioManager::getInstance().loadSound("footstep", {"Sounds/Elemental/Grass.wav", "Sounds/Elemental/Grass2.wav"}))
@@ -80,7 +79,6 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
         std::cerr << "[Game] Failed to load teleport sound\n";
     }
 
-    std::cout << "[Game] All sounds loaded\n";
 
     // Création de la fenêtre
     Uint32 windowFlags = fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
@@ -104,18 +102,10 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
     SDL_SetRenderDrawColor(m_renderer, 30, 30, 30, 255);
     m_isRunning = true;
 
-    (void)ECS::getComponentTypeID<TransformComponent>(); // ID 0
-    (void)ECS::getComponentTypeID<SpriteComponent>();    // ID 1
-    (void)ECS::getComponentTypeID<AnimationComponent>(); // ID 2
 
-    std::cout << "[Game] TransformComponent ID: " << ECS::getComponentTypeID<TransformComponent>() << "\n";
-    std::cout << "[Game] SpriteComponent ID: " << ECS::getComponentTypeID<SpriteComponent>() << "\n";
-    std::cout << "[Game] AnimationComponent ID: " << ECS::getComponentTypeID<AnimationComponent>() << "\n";
-
-    // Initialiser les systèmes ECS
     setupSystems();
 
-    // Créer une entité de test
+
     createTestEntity();
 
     AudioManager::getInstance().playMusic("adventure", 2000);
@@ -131,7 +121,7 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
         std::cerr << "[Game] Failed to initialize UIThemeManager\n";
         return 1;
     }
-    std::cout << "[Game] UIThemeManager initialized\n";
+
     if (SpellDataBase::loadFromFile("assets/Datas/spells.json")) {
         std::cout << "Spells loaded!\n";
     } else {
@@ -144,8 +134,6 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
 
 void Game::loadMap(const std::string &mapPath, const std::string &spawnPointName)
 {
-    std::cout << "[Game] Loading map: " << mapPath << "\n";
-    std::cout << "[Game] Spawn point: " << spawnPointName << "\n";
 
     if (currentMap)
     {
@@ -324,38 +312,6 @@ void Game::createTestEntity()
     cameraSys->setTarget(&player);
 }
 
-SDL_Texture *Game::createColorTexture(int width, int height, Uint8 r, Uint8 g, Uint8 b)
-{
-    SDL_Surface *surface = SDL_CreateRGBSurface(
-        0,          // flags (déprécié dans SDL2, mettre 0)
-        width,      // largeur
-        height,     // hauteur
-        32,         // depth (bits par pixel)
-        0xFF000000, // Rmask
-        0x00FF0000, // Gmask
-        0x0000FF00, // Bmask
-        0x000000FF  // Amask
-    );
-
-    if (!surface)
-    {
-        std::cerr << "[Game] Failed to create surface :" << SDL_GetError() << "\n";
-        return nullptr;
-    }
-
-    SDL_FillRect(surface, nullptr, SDL_MapRGB(surface->format, r, g, b));
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(m_renderer, surface);
-
-    if (!texture)
-    {
-        std::cerr << "[game] Failed to create texture :" << SDL_GetError() << "\n";
-        return nullptr;
-    }
-
-    SDL_FreeSurface(surface);
-
-    return texture;
-}
 
 SDL_Texture *Game::loadTexture(const char *filepath)
 {
@@ -376,7 +332,6 @@ SDL_Texture *Game::loadTexture(const char *filepath)
     }
 
     SDL_FreeSurface(surface);
-    std::cout << "[Game] Texture load from :" << filepath << std::endl;
     return texture;
 }
 
@@ -417,7 +372,7 @@ void Game::HandleEvents()
             case SDLK_r:
                 if (currentState == GameState::Playing)
                 {
-                    UIManager::getInstance().pushMenu(new RunesMenu(m_renderer, this, 3));
+                    UIManager::getInstance().pushMenu(new RunesMenu(m_renderer, this, 8));
                     SetState(GameState::Casting);
                 }
                 else if (currentState == GameState::Casting)

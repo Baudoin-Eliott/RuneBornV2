@@ -76,6 +76,5 @@ public:
 private:
     void setupSystems();
     void createTestEntity();
-    SDL_Texture *createColorTexture(int width, int height, Uint8 r, Uint8 g, Uint8 b);
     SDL_Texture *loadTexture(const char *filepath);
 };

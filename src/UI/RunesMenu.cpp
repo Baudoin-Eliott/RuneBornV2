@@ -3,6 +3,7 @@
 #include "../Managers/UIThemeManager.h"
 #include "../../ECS/Utils/UIManager.h"
 #include "../../ECS/Utils/GameState.h"
+#include "../Spells/SpellRecognizer.h"
 
 RunesMenu::RunesMenu(SDL_Renderer *rend, Game *g, int dif) : Menu("RunesMenu"), renderer(rend), game(g), level(dif), isCasting(false)
 {
@@ -21,7 +22,7 @@ bool RunesMenu::handleInput(SDL_Event &event)
     if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && isCasting)
     {
 
-        // envoyer les data qqpart
+        SpellRecognizer::recognize(connections, level);
         AudioManager::getInstance().playSound("MenuCancel");
         game->SetState(GameState::Playing);
         UIManager::getInstance().popMenu();
@@ -45,7 +46,7 @@ bool RunesMenu::handleInput(SDL_Event &event)
         int point = calculateNearestPoint(lastMousePos);
         if (connections.size() > 1 && point == connections[0])
         {
-            // envoyer les data qqpart
+            SpellRecognizer::recognize(connections, level);
             AudioManager::getInstance().playSound("MenuCancel");
             game->SetState(GameState::Playing);
             UIManager::getInstance().popMenu();
