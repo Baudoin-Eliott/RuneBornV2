@@ -32,6 +32,8 @@
 
 //Spells
 #include "src/Spells/SpellDataBase.h"
+#include "src/Spells/SpellFactory.h"
+#include "src/Spells/SpellEffect.h"
 
 Game::Game()
 {
@@ -359,6 +361,34 @@ void Game::HandleEvents()
                     std::cout << "[Game] game paused\n";
                 }
                 break;
+            }
+            case SDLK_e:
+            {
+                ECS::Entity& player = m_manager.getEntityByTag("Player");
+                if (player)
+                {
+                    if (player.hasComponent<PlayerComponent>()){
+                        PlayerComponent playerComp = player.getComponent<PlayerComponent>();
+                        if (playerComp.currentSpell){
+                            
+                            ECS::Entity& projectileEntity = m_manager.createEntity("FireBall");
+
+                            SpellPattern pattern = SpellDataBase::getPatternByName(playerComp.currentSpell.value().spellName);
+
+                            auto effect = SpellFactory::create(pattern, playerComp.currentSpell.value().power);
+
+                            if (effect){
+                                effect->OnCast();
+
+                                projectileEntity.addComponent<SpellEffect>(std::move(effect));
+                            }
+
+                            playerComp.currentSpell.reset();
+
+                        }
+                    }
+                }
+
             }
             case SDLK_F3:
             {

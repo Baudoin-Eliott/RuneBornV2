@@ -203,16 +203,16 @@ int SpellRecognizer::verifyPathOrder(
     int penalty = 0;
     // point en plus / moins
     if (normalizedPath.size() - correctPath.size() != 0)
-        penalty += (abs(normalizedPath.size() - correctPath.size())) * (normalizedPath.size() - correctPath.size() > 0 ? 5 : 10);
+        penalty += (abs(normalizedPath.size() - correctPath.size())) * (normalizedPath.size() - correctPath.size() > 0 ? 10 : 20);
 
     // si il y a des inversion
-    penalty += countInversions(normalizedPath, correctPath) * 20;
+    penalty += countInversions(normalizedPath, correctPath) * 40;
 
     // les ecart spacial
-    penalty += spacialPenalty(normalizedPath, correctPath, gridSize) * 10;
+    penalty += spacialPenalty(normalizedPath, correctPath, gridSize) * 20;
 
     // les points que l'on a absolument pas visité
-    penalty += missingPoint(normalizedPath, correctPath, gridSize) * 20;
+    penalty += missingPoint(normalizedPath, correctPath, gridSize) * 40;
 
     return penalty;
 }
