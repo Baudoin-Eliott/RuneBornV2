@@ -46,7 +46,7 @@ private:
 public:
     GameState currentState = GameState::MainMenu;
     GameState previousState = GameState::MainMenu;
-    
+
     Game();
     ~Game();
 
@@ -68,6 +68,8 @@ public:
     }
 
     SDL_Renderer *getRenderer() { return m_renderer; }
+
+    ECS::Entity *getPlayer() { return m_player; }
 
     bool isRunning() { return m_isRunning; }
 

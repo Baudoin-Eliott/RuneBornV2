@@ -3,8 +3,10 @@
 void PlayerComponent::fuzeSpell(RecognitionResult otherSpell)
 {
 
-    if (!currentSpell){
+    if (!currentSpell)
+    {
         currentSpell = otherSpell;
         return;
     }
 }
+

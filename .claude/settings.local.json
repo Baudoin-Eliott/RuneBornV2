@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(export PATH=\"/c/msys64/mingw64/bin:$PATH\")",
+      "Bash(mingw32-make:*)"
+    ]
+  }
+}

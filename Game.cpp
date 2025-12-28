@@ -18,6 +18,7 @@
 // Systèmes perso
 #include "src/Systems/PlayerInputSystem.h"
 #include "src/Systems/DirectionalAnimationSystem.h"
+#include "src/Systems/HUDSystem.h"
 
 // Component Perso
 #include "src/Components/PlayerComponent.h"
@@ -30,7 +31,7 @@
 #include "src/UI/PauseMenu.h"
 #include "src/UI/RunesMenu.h"
 
-//Spells
+// Spells
 #include "src/Spells/SpellDataBase.h"
 #include "src/Spells/SpellFactory.h"
 #include "src/Spells/SpellEffect.h"
@@ -49,7 +50,6 @@ Game::~Game()
 
 int Game::Init(const char *title, int x, int y, int width, int height, bool fullscreen)
 {
-
     // Initialisation SDL2
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0)
     {
@@ -61,7 +61,6 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
         std::cerr << "Error initializing SDL_image: " << IMG_GetError() << std::endl;
         return 1;
     }
-
 
     if (!AudioManager::getInstance().init())
     {
@@ -80,7 +79,6 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
     {
         std::cerr << "[Game] Failed to load teleport sound\n";
     }
-
 
     // Création de la fenêtre
     Uint32 windowFlags = fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
@@ -104,9 +102,7 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
     SDL_SetRenderDrawColor(m_renderer, 30, 30, 30, 255);
     m_isRunning = true;
 
-
     setupSystems();
-
 
     createTestEntity();
 
@@ -124,9 +120,12 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
         return 1;
     }
 
-    if (SpellDataBase::loadFromFile("assets/Datas/spells.json")) {
+    if (SpellDataBase::loadFromFile("assets/Datas/spells.json"))
+    {
         std::cout << "Spells loaded!\n";
-    } else {
+    }
+    else
+    {
         std::cerr << "Failed to load spells!\n";
     }
 
@@ -258,6 +257,11 @@ void Game::setupSystems()
     auto *tilemapAfterSys = m_manager.addSystem<TileMapRenderSystem>(1);
     tilemapAfterSys->setPriority(101);
 
+    // HUD (Interface utilisateur in-game) - Doit être rendu APRES tout le reste
+    auto *hudSys = m_manager.addSystem<HUDSystem>();
+    hudSys->setRenderer(m_renderer);
+    hudSys->setPriority(999); // Très haute priorité pour être affiché par-dessus tout
+
     // debug pour les hitbox (future tooltip)
     auto *debugRenderSys = m_manager.addSystem<DebugRenderSystem>(false);
     debugRenderSys->setPriority(1000);
@@ -314,7 +318,6 @@ void Game::createTestEntity()
     cameraSys->setTarget(&player);
 }
 
-
 SDL_Texture *Game::loadTexture(const char *filepath)
 {
     SDL_Surface *surface = IMG_Load(filepath);
@@ -364,31 +367,51 @@ void Game::HandleEvents()
             }
             case SDLK_e:
             {
-                ECS::Entity& player = m_manager.getEntityByTag("Player");
+                // ERREUR CORRIGÉE: getEntityByTag retourne un pointeur (Entity*), pas une référence (Entity&)
+                ECS::Entity *player = m_manager.getEntityByTag("Player");
+
+                // ERREUR CORRIGÉE: On vérifie si le pointeur n'est pas nullptr
                 if (player)
                 {
-                    if (player.hasComponent<PlayerComponent>()){
-                        PlayerComponent playerComp = player.getComponent<PlayerComponent>();
-                        if (playerComp.currentSpell){
-                            
-                            ECS::Entity& projectileEntity = m_manager.createEntity("FireBall");
+                    // ERREUR CORRIGÉE: Utiliser -> au lieu de . car player est un pointeur
+                    if (player->hasComponent<PlayerComponent>())
+                    {
+                        // On récupère une référence au composant pour éviter les copies
+                        PlayerComponent &playerComp = player->getComponent<PlayerComponent>();
 
-                            SpellPattern pattern = SpellDataBase::getPatternByName(playerComp.currentSpell.value().spellName);
+                        if (playerComp.getCurrentSpeel())
+                        {
 
-                            auto effect = SpellFactory::create(pattern, playerComp.currentSpell.value().power);
+                            ECS::Entity &projectileEntity = m_manager.createEntity("FireBall");
 
-                            if (effect){
-                                effect->OnCast();
+                            // ERREUR CORRIGÉE: getPatternByName retourne const SpellPattern*, pas SpellPattern
+                            const SpellPattern *patternPtr = SpellDataBase::getPatternByName(playerComp.getCurrentSpeel().value().spellName);
 
-                                projectileEntity.addComponent<SpellEffect>(std::move(effect));
+                            // Vérifier que le pattern existe avant de l'utiliser
+                            if (patternPtr)
+                            {
+                                // Déréférencer le pointeur pour obtenir le pattern
+                                auto effect = SpellFactory::create(*patternPtr, playerComp.getCurrentSpeel().value().power);
+
+                                if (effect)
+                                {
+                                    // ERREUR CORRIGÉE: OnCast nécessite 2 paramètres: spellEntity et casterEntity
+                                    effect->OnCast(&projectileEntity, player);
+
+                                    // TODO: Il faudrait ajouter un vrai component pour gérer les sorts
+                                    // projectileEntity.addComponent<SpellEffect>(std::move(effect));
+                                }
+
+                                playerComp.resetSpell();
                             }
-
-                            playerComp.currentSpell.reset();
-
+                            else
+                            {
+                                std::cerr << "[Game] Spell pattern not found!\n";
+                            }
                         }
                     }
                 }
-
+                break;
             }
             case SDLK_F3:
             {

@@ -52,7 +52,10 @@ set(SOURCES
     # === Game Systems ===
     src/Systems/DirectionalAnimationSystem.cpp
     src/Systems/PlayerInputSystem.cpp
-    
+
+    # === Components ===
+    src/Components/PlayerComponent.cpp
+
     # === Spells ===
     src/Spells/SpellFactory.cpp
     src/Spells/SpellDatabase.cpp
@@ -99,7 +102,8 @@ set(HEADERS
     # === Game Systems ===
     src/Systems/DirectionalAnimationSystem.h
     src/Systems/PlayerInputSystem.h
-    
+    src/Systems/HUDSystem.h
+
     # === Spells ===
     src/Spells/SpellEffect.h
     src/Spells/SpellPattern.h
@@ -125,6 +129,7 @@ target_include_directories(RuneBorn PRIVATE
 )
 
 target_link_libraries(RuneBorn PRIVATE
+    # mingw32 est nécessaire pour SDL2 avec MinGW
     mingw32
     ${SDL2MAIN_LIBRARY}
     ${SDL2_LIBRARY}
@@ -145,6 +150,27 @@ foreach(DLL_FILE ${SDL2_RUNTIME_DLLS})
         message(WARNING "DLL not found: ${DLL_FILE}")
     endif()
 endforeach()
+
+# Copier les DLLs runtime de MinGW (nécessaires pour exécuter l'application)
+if(MINGW)
+    set(MINGW_RUNTIME_DLLS
+        "C:/msys64/mingw64/bin/libgcc_s_seh-1.dll"
+        "C:/msys64/mingw64/bin/libstdc++-6.dll"
+        "C:/msys64/mingw64/bin/libwinpthread-1.dll"
+    )
+
+    foreach(DLL_FILE ${MINGW_RUNTIME_DLLS})
+        if(EXISTS "${DLL_FILE}")
+            add_custom_command(TARGET RuneBorn POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                "${DLL_FILE}"
+                $<TARGET_FILE_DIR:RuneBorn>
+                COMMENT "Copying MinGW runtime: ${DLL_FILE}"
+            )
+        endif()
+    endforeach()
+endif()
+
 include_directories(${CMAKE_SOURCE_DIR}/ECS)
 
 message(STATUS "RuneBorn SDL2 configured!")

@@ -202,8 +202,13 @@ int SpellRecognizer::verifyPathOrder(
 {
     int penalty = 0;
     // point en plus / moins
-    if (normalizedPath.size() - correctPath.size() != 0)
-        penalty += (abs(normalizedPath.size() - correctPath.size())) * (normalizedPath.size() - correctPath.size() > 0 ? 10 : 20);
+    // ERREUR CORRIGÉE: abs() est ambigu avec size_t (unsigned)
+    // On cast explicitement en int pour éviter l'ambiguïté
+    if (normalizedPath.size() != correctPath.size())
+    {
+        int sizeDiff = static_cast<int>(normalizedPath.size()) - static_cast<int>(correctPath.size());
+        penalty += std::abs(sizeDiff) * (sizeDiff > 0 ? 10 : 20);
+    }
 
     // si il y a des inversion
     penalty += countInversions(normalizedPath, correctPath) * 40;

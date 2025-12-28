@@ -4,12 +4,12 @@
 #include "../../ECS/Utils/UIManager.h"
 #include "../../ECS/Utils/GameState.h"
 #include "../Spells/SpellRecognizer.h"
+#include "../Components/PlayerComponent.h"
 
 RunesMenu::RunesMenu(SDL_Renderer *rend, Game *g, int dif) : Menu("RunesMenu"), renderer(rend), game(g), level(dif), isCasting(false)
 {
-    spacingX = static_cast<int>(550.0f / (level - 1) + 0.5f);
-    spacingY = static_cast<int>(350.0f / (level - 1) + 0.5f);
-    tolerance = (spacingX / 4 + spacingY / 4) / 2;
+    spacingX = static_cast<int>(350.0f / (level - 1) + 0.5f);
+    tolerance = spacingX / 4;
 }
 
 void RunesMenu::onEnter()
@@ -21,8 +21,15 @@ bool RunesMenu::handleInput(SDL_Event &event)
 {
     if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && isCasting)
     {
+        RecognitionResult result = SpellRecognizer::recognize(connections, level);
 
-        SpellRecognizer::recognize(connections, level);
+        if (game->getPlayer())
+        {
+            if (game->getPlayer()->hasComponent<PlayerComponent>())
+
+                game->getPlayer()->getComponent<PlayerComponent>().fuzeSpell(result);
+        }
+
         AudioManager::getInstance().playSound("MenuCancel");
         game->SetState(GameState::Playing);
         UIManager::getInstance().popMenu();
@@ -38,6 +45,7 @@ bool RunesMenu::handleInput(SDL_Event &event)
         isCasting = true;
         connections.clear();
         connections.push_back(point);
+        lastMousePos = {(float)event.button.x, (float)event.button.y};
     }
 
     if (event.type == SDL_MOUSEMOTION && isCasting)
@@ -46,7 +54,15 @@ bool RunesMenu::handleInput(SDL_Event &event)
         int point = calculateNearestPoint(lastMousePos);
         if (connections.size() > 1 && point == connections[0])
         {
-            SpellRecognizer::recognize(connections, level);
+            RecognitionResult result = SpellRecognizer::recognize(connections, level);
+
+            if (game->getPlayer())
+            {
+                if (game->getPlayer()->hasComponent<PlayerComponent>())
+
+                    game->getPlayer()->getComponent<PlayerComponent>().fuzeSpell(result);
+            }
+
             AudioManager::getInstance().playSound("MenuCancel");
             game->SetState(GameState::Playing);
             UIManager::getInstance().popMenu();
@@ -62,15 +78,14 @@ void RunesMenu::render(SDL_Renderer *rend)
 {
     SDL_SetRenderDrawBlendMode(rend, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(rend, 24, 24, 24, 128);
-    SDL_Rect overlay = {100, 100, 600, 400};
+    SDL_Rect overlay = {200, 100, 400, 400};
     SDL_RenderFillRect(rend, &overlay);
-    int spacing = 125;
     SDL_SetRenderDrawColor(rend, 255, 255, 255, 255);
     for (int i = 0; i < level; i++)
     {
         for (int j = 0; j < level; j++)
         {
-            SDL_Rect pointRect = {spacing + i * spacingX - 2, spacing + j * spacingY - 2, 3, 3};
+            SDL_Rect pointRect = {225 + i * spacingX - 2, 125 + j * spacingX - 2, 3, 3};
             SDL_RenderFillRect(renderer, &pointRect);
         }
     }
@@ -93,17 +108,13 @@ void RunesMenu::render(SDL_Renderer *rend)
 
 void RunesMenu::onExit()
 {
-    for (int id : connections)
-    {
-        std::cout << id << " ";
-    }
 }
 
 int RunesMenu::calculateNearestPoint(Vector2D pos)
 {
 
     int gridX = static_cast<int>((pos.x - 125.0f) / spacingX + 0.5f);
-    int gridY = static_cast<int>((pos.y - 125.0f) / spacingY + 0.5f);
+    int gridY = static_cast<int>((pos.y - 125.0f) / spacingX + 0.5f);
 
     if (gridX < 0 || gridX >= level || gridY < 0 || gridY >= level)
     {
@@ -120,7 +131,7 @@ int RunesMenu::calculateNearestPoint(Vector2D pos)
 Vector2D RunesMenu::getPosById(int id)
 {
     int pointPosX = 125 + (id % level) * spacingX;
-    int pointPosY = 125 + (id / level) * spacingY;
+    int pointPosY = 125 + (id / level) * spacingX;
 
     return {(float)pointPosX, (float)pointPosY};
 }

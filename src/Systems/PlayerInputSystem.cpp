@@ -54,8 +54,8 @@ void PlayerInputSystem::update(float deltaTime)
             transform.velocity.Normalize();
         }
 
-        transform.velocity.x *= player.moveSpeed;
-        transform.velocity.y *= player.moveSpeed;
+        transform.velocity.x *= player.getSpeed();
+        transform.velocity.y *= player.getSpeed();
 
         if (entity->hasComponent<DirectionalAnimationComponent>())
         {
