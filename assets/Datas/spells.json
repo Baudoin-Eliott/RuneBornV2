@@ -12,7 +12,10 @@
 		[5,4,3,2,1,2,3,4,5]
 	],
 	"value" : [1,2,12,22,14,6,7,17,26,35,43,51,59,67,57,47,37,27,18,9],
-"EffectClass" : "HealEffect"}
+"EffectClass" : "HealEffect",
+"Speed": 10,
+"BaseDamage": 5,
+"LifeTime": 15}
 	},
 "Lvl8":{},
 "Lvl7":{},
@@ -27,7 +30,10 @@
 			[0,1,1,1,1]
 		],
 		"value": [0,7,14,17,20,16,12,6],
-	"EffectClass" : "IceSpearEffect"}
+	"EffectClass" : "IceSpearEffect",
+"Speed": 10,
+"BaseDamage": 5,
+"LifeTime": 15}
 },
 "Lvl4" : {
 	"FireBall":{
@@ -38,7 +44,10 @@
 		[1,0,0,1]
 	],
 	"value" : [1, 2,7,11,14,13,8,4],
-"EffectClass" : "FireBallEffect"},
+"EffectClass" : "FireBallEffect",
+"Speed" : 10,
+"BaseDamage" : 5,
+"LifeTime" : 15},
 	"Inventory":{
 		"pattern":[
 			[0, 0, 0, 0],
@@ -47,7 +56,10 @@
 			[0, 0, 0,0]
 		],
 		"value" : [0,1,2,3,7,11,15,14,13,12,8,4],
-		"EffectClass" : "InventoryEffect"
+		"EffectClass" : "InventoryEffect",
+		"Speed": 10,
+		"BaseDamage": 5,
+		"LifeTime": 15
 	}},
 "Lvl2":{},
 "Lvl1":{}

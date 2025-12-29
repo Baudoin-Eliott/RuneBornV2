@@ -3,8 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-
-using json = nlohmann::json; 
+using json = nlohmann::json;
 
 std::unordered_map<int, std::vector<SpellPattern>> SpellDataBase::patterns;
 bool SpellDataBase::isLoaded = false;
@@ -43,6 +42,9 @@ bool SpellDataBase::loadFromFile(const std::string &filepath)
             pattern.correctPath = spellData["value"].get<std::vector<int>>();
             pattern.costMap = spellData["pattern"].get<std::vector<std::vector<int>>>();
             pattern.effectClass = spellData["EffectClass"];
+            pattern.baseDamage = spellData["BaseDamage"].get<int>();
+            pattern.speed = spellData["Speed"].get<int>();
+            pattern.lifetime spellData["Lifetime"].get<int>();
 
             patterns[level].push_back(pattern);
         }
@@ -64,10 +66,12 @@ const std::vector<SpellPattern> &SpellDataBase::getPatternsForLevel(int level)
 
 const SpellPattern *SpellDataBase::getPatternByName(const std::string &name)
 {
-    for (auto& [level, spellList] : patterns){
-        for (auto& pattern : spellList){
+    for (auto &[level, spellList] : patterns)
+    {
+        for (auto &pattern : spellList)
+        {
             if (pattern.name == name)
-            return &pattern;
+                return &pattern;
         }
     }
     return nullptr;

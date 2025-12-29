@@ -101,6 +101,7 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
 
     SDL_SetRenderDrawColor(m_renderer, 30, 30, 30, 255);
     m_isRunning = true;
+    
 
     setupSystems();
 
@@ -120,13 +121,16 @@ int Game::Init(const char *title, int x, int y, int width, int height, bool full
         return 1;
     }
 
+    SpellFactory::initializeSpells();
+    std::cout << "[Game] Spell factory initialized\n";
+
     if (SpellDataBase::loadFromFile("assets/Datas/spells.json"))
     {
-        std::cout << "Spells loaded!\n";
+        std::cout << "[Game] Spells loaded!\n";
     }
     else
     {
-        std::cerr << "Failed to load spells!\n";
+        std::cerr << "[Game] Failed to load spells!\n";
     }
 
     std::cout << "[Game] Initialized successfully!\n";
@@ -186,20 +190,14 @@ void Game::loadMap(const std::string &mapPath, const std::string &spawnPointName
         float mapWidth = tileMapComp.getMapWidthInPixels();
         float mapHeight = tileMapComp.getMapHeightInPixels();
 
-        // Calculer le zoom nécessaire pour remplir la fenêtre
         float zoomX = camera->viewportWidth / mapWidth;
         float zoomY = camera->viewportHeight / mapHeight;
 
-        // Prendre le plus grand zoom (pour remplir complètement)
         float optimalZoom = std::max(zoomX, zoomY);
 
-        // Option A : Forcer le zoom optimal
-        // camera->zoom = optimalZoom;
+        camera->zoom = std::max(optimalZoom, 2.5f); 
 
-        // Option B : Utiliser un zoom minimum (plus flexible)
-        camera->zoom = std::max(optimalZoom, 2.5f); // Au moins 1x
-
-        // Mettre à jour les bounds
+   
         camera->setBounds(0, mapWidth, 0, mapHeight);
 
         std::cout << "[Game] Map size: " << mapWidth << "x" << mapHeight << "\n";
