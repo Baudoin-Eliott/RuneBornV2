@@ -7,12 +7,9 @@
         "${workspaceFolder}/src",
         "C:/Dev/SDL2/include"
     ],
-    
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
-    
     "cmake.configureOnOpen": true,
     "cmake.buildDirectory": "${workspaceFolder}/build",
-    
     "files.exclude": {
         "**/.git": true,
         "**/.vs": true,
@@ -22,14 +19,11 @@
         "**/*.vcxproj.user": true,
         "**/*.sln": true
     },
-    
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 1000,
-
     // Auto-format à la sauvegarde
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-
     // Formatter par défaut pour C++
     "[cpp]": {
         "editor.defaultFormatter": "ms-vscode.cpptools"
@@ -37,7 +31,6 @@
     "[c]": {
         "editor.defaultFormatter": "ms-vscode.cpptools"
     },
-
     "files.associations": {
         "array": "cpp",
         "atomic": "cpp",

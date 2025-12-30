@@ -44,7 +44,7 @@ bool SpellDataBase::loadFromFile(const std::string &filepath)
             pattern.effectClass = spellData["EffectClass"];
             pattern.baseDamage = spellData["BaseDamage"].get<int>();
             pattern.speed = spellData["Speed"].get<int>();
-            pattern.lifetime spellData["Lifetime"].get<int>();
+            pattern.lifetime = spellData["LifeTime"].get<int>();
 
             patterns[level].push_back(pattern);
         }

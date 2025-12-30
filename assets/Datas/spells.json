@@ -45,7 +45,7 @@
 	],
 	"value" : [1, 2,7,11,14,13,8,4],
 "EffectClass" : "FireBallEffect",
-"Speed" : 10,
+"Speed" : 100,
 "BaseDamage" : 5,
 "LifeTime" : 15},
 	"Inventory":{

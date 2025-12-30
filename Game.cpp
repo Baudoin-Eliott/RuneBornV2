@@ -26,6 +26,7 @@
 
 // Managers
 #include "src/Managers/AudioManager.h"
+#include "src/Managers/AssetsManager.h"
 #include "ECS/Utils/UIManager.h"
 #include "src/UI/MainMenu.h"
 #include "src/UI/PauseMenu.h"
@@ -235,6 +236,10 @@ void Game::setupSystems()
     auto *triggerSys = m_manager.addSystem<TriggerSystem>();
     triggerSys->setPriority(25);
 
+    //system d'animation basique
+    auto *animationSys = m_manager.addSystem<AnimationSystem>();
+    animationSys->setPriority(29);
+
     // Système d'animation
     auto *dirAnimSys = m_manager.addSystem<DirectionalAnimationSystem>();
     dirAnimSys->setPriority(30);
@@ -282,7 +287,7 @@ void Game::createTestEntity()
     player.addComponent<DirectionalAnimationComponent>("Walk", Direction::Down, 150, 16);
     player.addComponent<CollisionComponent>(0, 0, 16, 16, "Player");
 
-    SDL_Texture *texture = loadTexture("assets/Actor/Characters/Boy/SpriteSheet.png");
+    SDL_Texture *texture = AssetsManager::getInstance().getTexture(m_renderer, "Actor/Characters/Boy/SpriteSheet.png");
     auto &sprite = player.getComponent<SpriteComponent>();
     sprite.setTexture(texture);
     sprite.renderLayer = LAYER_PLAYER;
@@ -314,28 +319,6 @@ void Game::createTestEntity()
 
     auto cameraSys = m_manager.getSystem<CameraSystem>();
     cameraSys->setTarget(&player);
-}
-
-SDL_Texture *Game::loadTexture(const char *filepath)
-{
-    SDL_Surface *surface = IMG_Load(filepath);
-
-    if (!surface)
-    {
-        std::cerr << "[Game] Failed to load image :" << filepath << "--" << IMG_GetError() << std::endl;
-        return nullptr;
-    }
-
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(m_renderer, surface);
-
-    if (!texture)
-    {
-        std::cerr << "[Game] failed to create Texture from Surface -" << SDL_GetError() << std::endl;
-        return nullptr;
-    }
-
-    SDL_FreeSurface(surface);
-    return texture;
 }
 
 void Game::HandleEvents()

@@ -24,6 +24,7 @@ if %ERRORLEVEL% EQU 0 (
     echo.
     echo Executable: build\RuneBorn.exe
     echo Pour lancer le jeu: double-cliquez sur RunGame.bat
+    pause
 ) else (
     echo.
     echo ========================================

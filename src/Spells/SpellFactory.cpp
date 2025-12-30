@@ -17,7 +17,7 @@ std::unique_ptr<SpellEffect> SpellFactory::create(const SpellPattern& pattern, i
 
 void SpellFactory::initializeSpells() {
 
-    //ici tous les sorts que j'ai cree
+
     registerSpell<FireBallEffect>("FireBallEffect");
     
     std::cout << "[SpellFactory] Registered " << creators.size() << " spell types\n";

@@ -37,6 +37,7 @@ set(SOURCES
     ECS/Systems/TileMapRenderSystem.cpp
     ECS/Systems/RenderSystem.cpp
     ECS/Systems/DebugRenderSystem.cpp
+    ECS/Systems/AnimationSystem.cpp
     
     # === UI ===
     src/UI/MainMenu.cpp
@@ -48,6 +49,7 @@ set(SOURCES
     # === Managers ===
     src/Managers/AudioManager.cpp
     src/Managers/UIThemeManager.cpp
+    src/Managers/AssetsManager.cpp
     
     # === Game Systems ===
     src/Systems/DirectionalAnimationSystem.cpp
@@ -98,6 +100,7 @@ set(HEADERS
     # === Managers ===
     src/Managers/AudioManager.h
     src/Managers/UIThemeManager.h
+    src/Managers/AssetsManager.h
     
     # === Game Systems ===
     src/Systems/DirectionalAnimationSystem.h
